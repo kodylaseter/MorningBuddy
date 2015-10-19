@@ -5,22 +5,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 /**
  * Created by song on 10/19/2015 0019.
  */
-public class MainActivity extends AppCompatActivity {
-
-    static String position, newAlarm;
+public class NewAlarm extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Intent intent = getIntent();
-        position = intent.getStringExtra("position");
-        newAlarm = "N/A";
+        setContentView(R.layout.activity_new);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -42,12 +35,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-    public void newButtonClicked (View view) {
-        //Intent intent = new Intent(this, NewAlarm.class);
-        //intent.putExtra("newAlarm", newAlarm);
-        //intent.putExtra("id", position);
-        Intent intent = new Intent(this, WeatherActivity.class);
-        startActivity(intent);
     }
 }
