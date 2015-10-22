@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Intent intent = getIntent();
         position = intent.getStringExtra("position");
         newAlarm = "N/A";
@@ -43,11 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void newButtonClicked (View view) {
-        //Intent intent = new Intent(this, NewAlarm.class);
-        //intent.putExtra("newAlarm", newAlarm);
-        //intent.putExtra("id", position);
-        Intent intent = new Intent(this, WeatherActivity.class);
+    public void newAlarmButtonClicked (View view) {
+        Intent intent = new Intent(this, NewAlarmActivity.class);
         startActivity(intent);
     }
 }

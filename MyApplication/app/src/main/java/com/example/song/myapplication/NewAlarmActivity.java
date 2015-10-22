@@ -5,15 +5,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+
+import com.example.song.myapplication.db.AlarmDBHelper;
+import com.example.song.myapplication.models.Alarm;
 
 /**
  * Created by song on 10/19/2015 0019.
  */
-public class NewAlarm extends AppCompatActivity {
+public class NewAlarmActivity extends AppCompatActivity {
+    AlarmDBHelper alarmDBHelper;
+    EditText name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
+        alarmDBHelper = AlarmDBHelper.getInstance(this);
+        name = (EditText)findViewById(R.id.nameText);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,5 +44,10 @@ public class NewAlarm extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void createAlarmClicked (View view) {
+        Alarm alarm = alarmDBHelper.addAlarm(name.getText().toString());
+        startActivity(new Intent(this, HomeActivity.class));
     }
 }
