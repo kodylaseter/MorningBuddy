@@ -50,15 +50,15 @@ public class AlarmDBHelper {
         return db;
     }
 
-    public Alarm addAlarm(String name) {
+    public Alarm addAlarm(Alarm alarm) {
         ContentValues values = new ContentValues();
-        values.put(DBService.COLUMN_NAME, name);
+        values.put(DBService.COLUMN_NAME, alarm.getName());
         long insertID = getDb().insert(DBService.TABLE_NAME, null, values);
         Cursor cursor = getDb().query(DBService.TABLE_NAME, columns, DBService.COLUMN_ID + " =" + insertID, null, null, null, null);
         cursor.moveToFirst();
-        Alarm alarm = toAlarmModel(cursor);
+        Alarm a = toAlarmModel(cursor);
         updateAlarms();
-        return alarm;
+        return a;
     }
 
     public Alarm getAlarm(int position) {

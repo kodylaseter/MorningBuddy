@@ -24,6 +24,12 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        if (getIntent().getBooleanExtra("EXIT", false))
+//        {
+//            Intent i = new Intent(this,Login.class);
+//            startActivity(i);
+//            finish();
+//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         alarmListView = (ListView) findViewById(R.id.alarmListView);
