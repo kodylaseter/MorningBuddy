@@ -32,9 +32,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
         TextView firstLine = (TextView) convertView.findViewById(R.id.firstLine);
         TextView secondLine = (TextView) convertView.findViewById(R.id.secondLine);
         firstLine.setText(alarm.getName());
-        if (alarm.getTime() != null) {
-            secondLine.setText(alarm.getTime().toString());
-        }
+        secondLine.setText(alarm.getTimeString());
         return convertView;
     }
 }

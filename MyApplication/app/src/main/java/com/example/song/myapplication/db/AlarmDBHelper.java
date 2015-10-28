@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class AlarmDBHelper {
     private SQLiteDatabase db;
     private DBService dbservice;
-    private String[] columns = {DBService.COLUMN_ID, DBService.COLUMN_NAME};
+    private String[] columns = {DBService.COLUMN_ID, DBService.COLUMN_NAME, DBService.COLUMN_TIME};
     private ArrayList<Alarm> alarms;
 
     private static AlarmDBHelper alarmDBInstance;
@@ -53,6 +53,8 @@ public class AlarmDBHelper {
     public Alarm addAlarm(Alarm alarm) {
         ContentValues values = new ContentValues();
         values.put(DBService.COLUMN_NAME, alarm.getName());
+        values.put(DBService.COLUMN_NAME, alarm.getName());
+        values.put(DBService.COLUMN_TIME, alarm.getTime());
         long insertID = getDb().insert(DBService.TABLE_NAME, null, values);
         Cursor cursor = getDb().query(DBService.TABLE_NAME, columns, DBService.COLUMN_ID + " =" + insertID, null, null, null, null);
         cursor.moveToFirst();
@@ -84,7 +86,7 @@ public class AlarmDBHelper {
     }
 
     public Alarm toAlarmModel(Cursor cursor) {
-        return new Alarm(cursor.getLong(0), cursor.getString(1));
+        return new Alarm(cursor.getLong(0), cursor.getString(1), cursor.getInt(2));
 
     }
 }
