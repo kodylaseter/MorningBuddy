@@ -32,6 +32,10 @@ public class Alarm {
         int hours = t.getHours();
         String sH = Integer.toString(hours);
         String sM = sM = minutes < 10 ? "0" + minutes : "" + minutes;
+        if (hours < 1) {
+            sH = "12";
+            temp = sH + ":" + sM + " AM";
+        }
         if (hours > 12) {
             sH = Integer.toString(hours - 12);
             temp = sH + ":" + sM + " PM";
