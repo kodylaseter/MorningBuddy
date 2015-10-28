@@ -18,6 +18,7 @@ import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
 
 import java.sql.Time;
+import java.util.Calendar;
 
 /**
  * Created by song on 10/19/2015 0019.
@@ -31,7 +32,7 @@ public class NewAlarmActivity extends AppCompatActivity {
     EditText weatherLocation;
     EditText trafficDestination;
     TimePicker timePicker;
-    Time alarmTime;
+    int alarmTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         trafficDestination = (EditText)findViewById(R.id.trafficDestination);
         weatherLocation = (EditText)findViewById(R.id.weatherLocation);
         timePicker = (TimePicker)findViewById(R.id.timePicker);
-
+        alarmTime = Calendar.getInstance().getTime().getHours() * 60 + Calendar.getInstance().getTime().getMinutes();
 
         CompoundButton.OnCheckedChangeListener switchListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -70,7 +71,7 @@ public class NewAlarmActivity extends AppCompatActivity {
 
         TimePicker.OnTimeChangedListener timePickerListener = new TimePicker.OnTimeChangedListener() {
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                alarmTime = new Time(hourOfDay, minute, 0);
+                alarmTime = hourOfDay * 60 + minute;
             }
         };
 
@@ -111,9 +112,4 @@ public class NewAlarmActivity extends AppCompatActivity {
         i.putExtra("EXIT", true);
         startActivity(i);
     }
-
-//    @Override
-//    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//
-//    }
 }
