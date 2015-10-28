@@ -24,12 +24,6 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        if (getIntent().getBooleanExtra("EXIT", false))
-//        {
-//            Intent i = new Intent(this,Login.class);
-//            startActivity(i);
-//            finish();
-//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         alarmListView = (ListView) findViewById(R.id.alarmListView);
@@ -48,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        //getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 

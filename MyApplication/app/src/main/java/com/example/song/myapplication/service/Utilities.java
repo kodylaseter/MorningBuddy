@@ -13,4 +13,12 @@ public class Utilities {
     public static int timeToMinutes(Time time) {
         return (time.getHours() * 60) + time.getMinutes();
     }
+
+    public static int minutesToMilliseconds(int min) {
+        return min * 60 * 1000;
+    }
+
+    public static int millisecondsToMinutes(int millis) {
+        return millis / (60*1000);
+    }
 }
