@@ -71,7 +71,7 @@ public class NewAlarmActivity extends AppCompatActivity {
 
         TimePicker.OnTimeChangedListener timePickerListener = new TimePicker.OnTimeChangedListener() {
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                alarmTime = hourOfDay * 60 + minute;
+
             }
         };
 

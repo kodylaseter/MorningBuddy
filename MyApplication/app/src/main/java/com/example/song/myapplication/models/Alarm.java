@@ -11,7 +11,7 @@ public class Alarm {
 
     private long id;
     private String name;
-    private int time;
+    private long time; //time in millis since
 
     public Alarm(long id, String name, int minutesAfterMidnight) {
         this.id = id;
