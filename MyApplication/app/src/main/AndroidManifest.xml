@@ -10,10 +10,6 @@
         android:label="Morning Buddy"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
-            android:label="Morning Buddy" >
-        </activity>
-        <activity
             android:name=".WeatherActivity"
             android:label="weather detail" >
         </activity>
@@ -30,6 +26,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AlarmActivity"
+            android:label="Alarm Activity" >
+        </activity>
+
+        <receiver
+            android:name=".service.AlarmReceiver"/>
     </application>
 
 </manifest>

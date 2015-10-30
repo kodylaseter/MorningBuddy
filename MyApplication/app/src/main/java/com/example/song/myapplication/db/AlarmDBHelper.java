@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.song.myapplication.models.Alarm;
+import com.example.song.myapplication.service.AlarmManagerService;
+import com.example.song.myapplication.service.Utilities;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ public class AlarmDBHelper {
     private DBService dbservice;
     private String[] columns = {DBService.COLUMN_ID, DBService.COLUMN_NAME, DBService.COLUMN_TIME};
     private ArrayList<Alarm> alarms;
+    private AlarmManagerService alarmManagerService;
+    private Context ctx;
 
     private static AlarmDBHelper alarmDBInstance;
 
@@ -30,6 +34,8 @@ public class AlarmDBHelper {
 
     public AlarmDBHelper (Context context) {
         dbservice = DBService.getInstance(context);
+        alarmManagerService = new AlarmManagerService();
+        ctx = context;
         updateAlarms();
     }
 
@@ -51,14 +57,15 @@ public class AlarmDBHelper {
     }
 
     public Alarm addAlarm(Alarm alarm) {
+        //alarmManagerService.setAlarm(Utilities.minutesToTime(alarm.getTime()), ctx);
         ContentValues values = new ContentValues();
-        values.put(DBService.COLUMN_NAME, alarm.getName());
         values.put(DBService.COLUMN_NAME, alarm.getName());
         values.put(DBService.COLUMN_TIME, alarm.getTime());
         long insertID = getDb().insert(DBService.TABLE_NAME, null, values);
         Cursor cursor = getDb().query(DBService.TABLE_NAME, columns, DBService.COLUMN_ID + " =" + insertID, null, null, null, null);
         cursor.moveToFirst();
         Alarm a = toAlarmModel(cursor);
+
         updateAlarms();
         return a;
     }
