@@ -1,7 +1,10 @@
 package com.example.song.myapplication;
 
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +19,8 @@ import android.widget.TimePicker;
 
 import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
+import com.example.song.myapplication.service.AlarmManagerService;
+import com.example.song.myapplication.service.AlarmReceiver;
 
 import java.sql.Time;
 import java.util.Calendar;
@@ -32,7 +37,6 @@ public class NewAlarmActivity extends AppCompatActivity {
     EditText weatherLocation;
     EditText trafficDestination;
     TimePicker timePicker;
-    int alarmTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,6 @@ public class NewAlarmActivity extends AppCompatActivity {
         trafficDestination = (EditText)findViewById(R.id.trafficDestination);
         weatherLocation = (EditText)findViewById(R.id.weatherLocation);
         timePicker = (TimePicker)findViewById(R.id.timePicker);
-        alarmTime = Calendar.getInstance().getTime().getHours() * 60 + Calendar.getInstance().getTime().getMinutes();
 
         CompoundButton.OnCheckedChangeListener switchListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -69,13 +72,6 @@ public class NewAlarmActivity extends AppCompatActivity {
             }
         };
 
-        TimePicker.OnTimeChangedListener timePickerListener = new TimePicker.OnTimeChangedListener() {
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-
-            }
-        };
-
-        timePicker.setOnTimeChangedListener(timePickerListener);
         trafficSwitch.setOnCheckedChangeListener(switchListener);
         weatherSwitch.setOnCheckedChangeListener(switchListener);
 
@@ -102,14 +98,37 @@ public class NewAlarmActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     public void createAlarmClicked (View view) {
         Alarm alarm = new Alarm();
         alarm.setName(name.getText().toString());
+        int alarmTime = (timePicker.getCurrentHour() * 60) + timePicker.getCurrentMinute();
         alarm.setTime(alarmTime);
         alarmDBHelper.addAlarm(alarm);
+        setAlarm(alarm.getTimeAsTime());
+
         Intent i = new Intent(this,HomeActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.putExtra("EXIT", true);
         startActivity(i);
+
+    }
+    public void setAlarm(Time time) {
+        Calendar calNow = Calendar.getInstance();
+        Calendar calSet = (Calendar) calNow.clone();
+        calSet.setTimeInMillis(System.currentTimeMillis());
+        calSet.set(Calendar.HOUR_OF_DAY, time.getHours());
+        calSet.set(Calendar.MINUTE, time.getMinutes());
+        calSet.set(Calendar.SECOND, 0);
+        calSet.set(Calendar.MILLISECOND, 0);
+        if (calSet.compareTo(calNow) <= 0) {
+            calSet.add(Calendar.DATE, 1);
+        }
+        long t = calSet.getTimeInMillis();
+        Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), pendingIntent);
+
     }
 }

@@ -57,7 +57,7 @@ public class AlarmDBHelper {
     }
 
     public Alarm addAlarm(Alarm alarm) {
-        setActualAlarm(alarm);
+        //alarmManagerService.setAlarm(Utilities.minutesToTime(alarm.getTime()), ctx);
         ContentValues values = new ContentValues();
         values.put(DBService.COLUMN_NAME, alarm.getName());
         values.put(DBService.COLUMN_TIME, alarm.getTime());
@@ -68,10 +68,6 @@ public class AlarmDBHelper {
 
         updateAlarms();
         return a;
-    }
-
-    public void setActualAlarm(Alarm alarm) {
-        alarmManagerService.setAlarm(Utilities.minutesToTime(alarm.getTime()), ctx);
     }
 
     public Alarm getAlarm(int position) {
@@ -97,7 +93,7 @@ public class AlarmDBHelper {
     }
 
     public Alarm toAlarmModel(Cursor cursor) {
-        return new Alarm(cursor.getLong(0), cursor.getString(1), cursor.getLong(2));
+        return new Alarm(cursor.getLong(0), cursor.getString(1), cursor.getInt(2));
 
     }
 }

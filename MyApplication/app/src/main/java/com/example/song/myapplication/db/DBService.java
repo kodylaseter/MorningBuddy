@@ -20,7 +20,7 @@ public class DBService extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "alarm.db";
     private static final int DATABASE_VERSION = 4;
 
-    private static final String DATABASE_CREATE = "create table " + TABLE_NAME + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_NAME + " text not null, " + COLUMN_TIME + " long not null);";
+    private static final String DATABASE_CREATE = "create table " + TABLE_NAME + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_NAME + " text not null, " + COLUMN_TIME + " integer not null);";
 
     private Context dbCtx;
 
