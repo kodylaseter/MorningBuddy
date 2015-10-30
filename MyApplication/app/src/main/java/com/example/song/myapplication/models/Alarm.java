@@ -21,7 +21,7 @@ public class Alarm {
 
     public Alarm() {}
 
-    public int getTime() {
+    public long getTime() {
         return time;
     }
 
