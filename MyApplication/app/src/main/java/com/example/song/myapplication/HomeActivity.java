@@ -28,8 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         alarmListView = (ListView) findViewById(R.id.alarmListView);
         alarmDBHelper = AlarmDBHelper.getInstance(this);
-        ArrayList<Alarm> values = alarmDBHelper.getAlarms();
-        AlarmAdapter adapter = new AlarmAdapter(this, values);
+        AlarmAdapter adapter = new AlarmAdapter(this, alarmDBHelper.getAlarms());
         alarmListView.setAdapter(adapter);
 
     }
