@@ -68,12 +68,7 @@ public class NewAlarmActivity extends AppCompatActivity {
                     }
                 } else if (buttonView.getId() == R.id.weatherSwitch) {
                     if (isChecked) {
-                        /*
-                        weatherLocation.setVisibility(View.VISIBLE);
-                    } else {
-                        weatherLocation.setVisibility(View.GONE);
-                        */
-                        weatherMonitoringOn();
+                        //weatherMonitoringOn();
                     }
                 }
             }
@@ -111,6 +106,8 @@ public class NewAlarmActivity extends AppCompatActivity {
         alarm.setName(name.getText().toString());
         int alarmTime = (timePicker.getCurrentHour() * 60) + timePicker.getCurrentMinute();
         alarm.setTime(alarmTime);
+        alarm.setTrafficEnabled(trafficSwitch.isChecked());
+        alarm.setWeatherEnabled(weatherSwitch.isChecked());
         alarmDBHelper.addAlarm(alarm);
         setAlarm(alarm.getTimeAsTime());
 

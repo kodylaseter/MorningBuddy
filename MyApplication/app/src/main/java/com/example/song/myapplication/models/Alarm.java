@@ -12,14 +12,29 @@ public class Alarm {
     private long id;
     private String name;
     private int time; //time in millis since
+    private boolean weatherEnabled;
+    private boolean trafficEnabled;
 
-    public Alarm(long id, String name, int minutesAfterMidnight) {
+    public Alarm(long id, String name, int minutesAfterMidnight, boolean weatherEnabled, boolean trafficEnabled) {
         this.id = id;
         this.name = name;
         this.time = minutesAfterMidnight;
+        this.weatherEnabled = weatherEnabled;
+        this.trafficEnabled = trafficEnabled;
     }
 
-    public Alarm() {}
+    //passing traffic and weather as 0 or 1. probably to be used by db
+    public Alarm(long id, String name, int minutesAfterMidnight, int weatherEnabled, int trafficEnabled) {
+        this.id = id;
+        this.name = name;
+        this.time = minutesAfterMidnight;
+        this.weatherEnabled = weatherEnabled == 1;
+        this.trafficEnabled = trafficEnabled == 1;
+
+    }
+
+    public Alarm() {
+    }
 
     public int getTime() {
         return time;
@@ -58,10 +73,6 @@ public class Alarm {
         return id;
     }
 
-//    public void setId(long id) {
-//        this.id = id;
-//    }
-
     public void setName(String n) {
         this.name = n;
     }
@@ -70,5 +81,19 @@ public class Alarm {
         return this.name;
     }
 
+    public boolean isWeatherEnabled() {
+        return weatherEnabled;
+    }
 
+    public void setWeatherEnabled(boolean weatherEnabled) {
+        this.weatherEnabled = weatherEnabled;
+    }
+
+    public boolean isTrafficEnabled() {
+        return trafficEnabled;
+    }
+
+    public void setTrafficEnabled(boolean trafficEnabled) {
+        this.trafficEnabled = trafficEnabled;
+    }
 }
