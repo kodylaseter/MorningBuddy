@@ -139,25 +139,9 @@ public class NewAlarmActivity extends AppCompatActivity {
     }
 
     private void weatherMonitoringOn() {
-        Intent  i = new Intent(this, WeatherActivity.class);
-        //startActivity(i);
-
-        //i.putExtra("myobject", wm);
-        startActivityForResult(i, 1);
+        //for future weather monitor switch function
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 1 && resultCode == RESULT_OK) {
-//            //int s = data.getIntExtra("testing", 2);
-//            Bundle b = data.getExtras();
-//            if (b != null) {
-//                wm = (WeatherMonitor) b.getSerializable("weatherMonitor");
-//                System.out.println(wm.getSnowTime() + ", " + wm.getWindyTime() + ", " + wm.getStormTime());
-//            }
-//            //Log.d("result", ""+s);
-//        }
-//    }
+
 
 }

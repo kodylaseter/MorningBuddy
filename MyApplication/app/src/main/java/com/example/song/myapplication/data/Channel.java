@@ -10,12 +10,19 @@ public class Channel implements JSONPopulator{
     private Units units;
     private Item item;
 
+    private String location;
+
     public Units getUnits() {
         return units;
     }
 
     public Item getItem() {
         return item;
+    }
+
+    public String getLocation() {
+
+        return location;
     }
 
     @Override
@@ -25,5 +32,7 @@ public class Channel implements JSONPopulator{
 
         item = new Item();
         item.populate(data.optJSONObject("item"));
+
+        location = data.optJSONObject("location").optString("city") + ", " + data.optJSONObject("location").optString("region");
     }
 }

@@ -3,6 +3,7 @@ package com.example.song.myapplication;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import com.example.song.myapplication.adapters.AlarmAdapter;
 import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
+import com.example.song.myapplication.service.SingleShotLocationProvider;
 
 import java.lang.reflect.Array;
 import java.sql.SQLException;
@@ -30,7 +32,6 @@ public class HomeActivity extends AppCompatActivity {
         alarmDBHelper = AlarmDBHelper.getInstance(this);
         AlarmAdapter adapter = new AlarmAdapter(this, alarmDBHelper.getAlarms());
         alarmListView.setAdapter(adapter);
-
     }
 
     public void newAlarmButtonClicked (View view) {
@@ -54,8 +55,31 @@ public class HomeActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.weather_settings) {
+            Intent  i = new Intent(this, WeatherActivity.class);
+            //startActivity(i);
 
-            return true;
+            //i.putExtra("myobject", wm);
+            startActivityForResult(i, 1);
+            /**************************************************************************/
+           // return result is not used at this moment, can be used for further development
+            /**************************************************************************/
+            //    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 1 && resultCode == RESULT_OK) {
+//            //int s = data.getIntExtra("testing", 2);
+//            Bundle b = data.getExtras();
+//            if (b != null) {
+//                wm = (WeatherMonitor) b.getSerializable("weatherMonitor");
+//                System.out.println(wm.getSnowTime() + ", " + wm.getWindyTime() + ", " + wm.getStormTime());
+//            }
+//            //Log.d("result", ""+s);
+//        }
+//    }
+
+
+
+
         }
 
         return super.onOptionsItemSelected(item);
