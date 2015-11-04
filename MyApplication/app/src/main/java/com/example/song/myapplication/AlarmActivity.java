@@ -87,7 +87,8 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
         weatherIconImageView.setImageDrawable(weatherIconDrawable);
         temperatureTextView.setText(item.getCondition().getTemperature() + "\u00B0" + channel.getUnits().getTemperature());
         conditionTextView.setText(item.getCondition().getDescription());
-        locationTextView.setText(service.getLocation());
+       // locationTextView.setText(service.getLocation());
+        locationTextView.setText(channel.getLocation());
     }
 
     @Override
