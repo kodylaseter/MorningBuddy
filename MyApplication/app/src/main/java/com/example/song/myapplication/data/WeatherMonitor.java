@@ -9,12 +9,22 @@ public class WeatherMonitor implements Serializable {
     private int snowTime;
     private int windyTime;
     private int stormTime;
+    private static WeatherMonitor weatherMonitor;
 
-    public WeatherMonitor(int snow, int windy, int storm) {
-        snowTime = snow;
-        windyTime = windy;
-        stormTime = storm;
+    public static WeatherMonitor getInstance() {
+        if (weatherMonitor == null) {
+            weatherMonitor = new WeatherMonitor();
+        }
+        return weatherMonitor;
     }
+
+//    public WeatherMonitor(int snow, int windy, int storm) {
+//        snowTime = snow;
+//        windyTime = windy;
+//        stormTime = storm;
+//    }
+
+    public WeatherMonitor() {}
 
     public int getSnowTime() {
         return snowTime;

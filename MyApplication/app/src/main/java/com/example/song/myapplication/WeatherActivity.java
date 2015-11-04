@@ -142,7 +142,12 @@ public class WeatherActivity extends AppCompatActivity implements WeatherService
     @TargetApi(Build.VERSION_CODES.M)
     public void weatherAdjustSaveButton(View view) {
 
-        WeatherMonitor wm = new WeatherMonitor(onPassSnowAdjustTime, onPassWindyAdjustTime, onPassStormAdjustTime);
+        //WeatherMonitor wm = new WeatherMonitor(onPassSnowAdjustTime, onPassWindyAdjustTime, onPassStormAdjustTime);
+        WeatherMonitor wm = WeatherMonitor.getInstance();
+        wm.setSnowTime(onPassSnowAdjustTime);
+        wm.setStormTime(onPassStormAdjustTime);
+        wm.setWindyTime(onPassWindyAdjustTime);
+
         Intent i = new Intent();
         i.putExtra("weatherMonitor", wm);
         setResult(RESULT_OK, i);

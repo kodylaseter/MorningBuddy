@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import com.example.song.myapplication.data.Channel;
 import com.example.song.myapplication.data.Item;
 import com.example.song.myapplication.service.WeatherService;
 import com.example.song.myapplication.service.WeatherServiceCallback;
+import com.example.song.myapplication.service.SingleShotLocationProvider;
 
 public class AlarmActivity extends AppCompatActivity implements WeatherServiceCallback {
 
@@ -41,7 +43,15 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
-        service.refreshWeather("new york, NY");
+        SingleShotLocationProvider.requestSingleUpdate(this,
+                new SingleShotLocationProvider.LocationCallback() {
+                    @Override
+                    public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
+                        Log.d("Location", "my location is " + location.toString());
+                        service.refreshWeather(location.toString());
+                    }
+                });
+//        service.refreshWeather("new york, NY");
     }
 
     @Override

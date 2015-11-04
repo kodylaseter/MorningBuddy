@@ -40,7 +40,7 @@ public class NewAlarmActivity extends AppCompatActivity {
     EditText trafficDestination;
     TimePicker timePicker;
 
-    WeatherMonitor wm = new WeatherMonitor(0, 0, 0);
+    //WeatherMonitor wm = new WeatherMonitor(0, 0, 0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +98,8 @@ public class NewAlarmActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.weather_settings) {
+            startActivity(new Intent(this, WeatherActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -136,7 +136,6 @@ public class NewAlarmActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), pendingIntent);
-
     }
 
     private void weatherMonitoringOn() {
@@ -147,18 +146,18 @@ public class NewAlarmActivity extends AppCompatActivity {
         startActivityForResult(i, 1);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            //int s = data.getIntExtra("testing", 2);
-            Bundle b = data.getExtras();
-            if (b != null) {
-                wm = (WeatherMonitor) b.getSerializable("weatherMonitor");
-                System.out.println(wm.getSnowTime() + ", " + wm.getWindyTime() + ", " + wm.getStormTime());
-            }
-            //Log.d("result", ""+s);
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 1 && resultCode == RESULT_OK) {
+//            //int s = data.getIntExtra("testing", 2);
+//            Bundle b = data.getExtras();
+//            if (b != null) {
+//                wm = (WeatherMonitor) b.getSerializable("weatherMonitor");
+//                System.out.println(wm.getSnowTime() + ", " + wm.getWindyTime() + ", " + wm.getStormTime());
+//            }
+//            //Log.d("result", ""+s);
+//        }
+//    }
 
 }
