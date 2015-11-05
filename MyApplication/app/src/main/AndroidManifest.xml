@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.song.myapplication" >
 
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="22" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -11,6 +15,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Morning Buddy"
         android:theme="@style/AppTheme" >
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAYdtMtT9c1yunHaot4vxPfpd20E_WHBGA"/>
+
         <activity
             android:name=".WeatherActivity"
             android:label="weather detail" >
