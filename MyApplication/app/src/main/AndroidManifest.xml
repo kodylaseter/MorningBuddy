@@ -4,13 +4,13 @@
 
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="22" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="22" />
 
     <application
         android:allowBackup="true"
@@ -24,7 +24,7 @@
 
         <activity
             android:name=".WeatherActivity"
-            android:label="weather detail" >
+            android:label="Weather Details">
         </activity>
         <activity
             android:name=".NewAlarmActivity"
