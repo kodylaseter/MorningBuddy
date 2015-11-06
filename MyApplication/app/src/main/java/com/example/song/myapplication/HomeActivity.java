@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.example.song.myapplication.adapters.AlarmAdapter;
 import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
+import com.example.song.myapplication.service.CalendarService;
 
 import java.lang.reflect.Array;
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ public class HomeActivity extends AppCompatActivity {
         alarmListView = (ListView) findViewById(R.id.alarmListView);
         alarmDBHelper = AlarmDBHelper.getInstance(this);
         ArrayList<Alarm> values = alarmDBHelper.getAlarms();
+
         AlarmAdapter adapter = new AlarmAdapter(this, values);
         alarmListView.setAdapter(adapter);
 

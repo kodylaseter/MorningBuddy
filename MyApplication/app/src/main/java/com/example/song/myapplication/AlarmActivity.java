@@ -8,11 +8,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.song.myapplication.adapters.CalendarAdapter;
 import com.example.song.myapplication.data.Channel;
 import com.example.song.myapplication.data.Item;
+import com.example.song.myapplication.service.CalendarService;
 import com.example.song.myapplication.service.WeatherService;
 import com.example.song.myapplication.service.WeatherServiceCallback;
 import com.example.song.myapplication.service.SingleShotLocationProvider;
@@ -23,6 +26,7 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
     private TextView temperatureTextView;
     private TextView conditionTextView;
     private TextView locationTextView;
+    private ListView calendarEventListView;
 
     private WeatherService service;
     private ProgressDialog dialog;
@@ -37,6 +41,11 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
         temperatureTextView = (TextView)findViewById(R.id.temperatureTextView);
         conditionTextView = (TextView)findViewById(R.id.conditionTextView);
         locationTextView = (TextView)findViewById(R.id.locationTextView);
+
+        calendarEventListView = (ListView)findViewById(R.id.calendarEventListView);
+        CalendarService calendarService = new CalendarService(this);
+        CalendarAdapter adapter = new CalendarAdapter(this, calendarService.getEvents());
+        calendarEventListView.setAdapter(adapter);
 
         service = new WeatherService(this);
 
