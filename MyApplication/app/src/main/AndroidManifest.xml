@@ -2,15 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.song.myapplication" >
 
-<<<<<<< HEAD
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
-=======
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="22" />
 
->>>>>>> 8c5ffb41e098960028638b8e5b35a7684c101037
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
