@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.song.myapplication.data.Channel;
 import com.example.song.myapplication.data.Item;
 import com.example.song.myapplication.data.WeatherMonitor;
+import com.example.song.myapplication.service.SingleShotLocationProvider;
 import com.example.song.myapplication.service.WeatherService;
 import com.example.song.myapplication.service.WeatherServiceCallback;
 
@@ -94,7 +95,18 @@ public class WeatherActivity extends AppCompatActivity implements WeatherService
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
-        service.refreshWeather("new york, NY");
+
+        SingleShotLocationProvider.requestSingleUpdate(this,
+                new SingleShotLocationProvider.LocationCallback() {
+                    @Override
+                    public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
+                        Log.d("Location", "my location is " + location.toString());
+                        System.out.println(location.toString());
+                        service.refreshWeather(location.toString());
+                    }
+                });
+
+        //service.refreshWeather("37.416275,-122.025092");
 
     }
 
@@ -131,7 +143,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherService
         weatherIconImageView.setImageDrawable(weatherIconDrawable);
         temperatureTextView.setText(item.getCondition().getTemperature() + "\u00B0" + channel.getUnits().getTemperature());
         conditionTextView.setText(item.getCondition().getDescription());
-        locationTextView.setText(service.getLocation());
+        //locationTextView.setText(service.getLocation());
+        locationTextView.setText(channel.getLocation());
     }
 
     @Override

@@ -18,9 +18,8 @@ import java.util.ArrayList;
 public class AlarmDBHelper {
     private SQLiteDatabase db;
     private DBService dbservice;
-    private String[] columns = {DBService.COLUMN_ID, DBService.COLUMN_NAME, DBService.COLUMN_TIME};
+    private String[] columns = {DBService.COLUMN_ID, DBService.COLUMN_NAME, DBService.COLUMN_TIME, DBService.COLUMN_WEATHERENABLED, DBService.COLUMN_TRAFFICENABLED};
     private ArrayList<Alarm> alarms;
-    private AlarmManagerService alarmManagerService;
     private Context ctx;
 
     private static AlarmDBHelper alarmDBInstance;
@@ -34,7 +33,6 @@ public class AlarmDBHelper {
 
     public AlarmDBHelper (Context context) {
         dbservice = DBService.getInstance(context);
-        alarmManagerService = new AlarmManagerService();
         ctx = context;
         updateAlarms();
     }
@@ -61,6 +59,8 @@ public class AlarmDBHelper {
         ContentValues values = new ContentValues();
         values.put(DBService.COLUMN_NAME, alarm.getName());
         values.put(DBService.COLUMN_TIME, alarm.getTime());
+        values.put(DBService.COLUMN_WEATHERENABLED, alarm.isWeatherEnabled());
+        values.put(DBService.COLUMN_TRAFFICENABLED, alarm.isTrafficEnabled());
         long insertID = getDb().insert(DBService.TABLE_NAME, null, values);
         Cursor cursor = getDb().query(DBService.TABLE_NAME, columns, DBService.COLUMN_ID + " =" + insertID, null, null, null, null);
         cursor.moveToFirst();
@@ -93,7 +93,7 @@ public class AlarmDBHelper {
     }
 
     public Alarm toAlarmModel(Cursor cursor) {
-        return new Alarm(cursor.getLong(0), cursor.getString(1), cursor.getInt(2));
+        return new Alarm(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4));
 
     }
 }

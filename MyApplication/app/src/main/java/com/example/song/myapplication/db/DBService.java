@@ -16,11 +16,14 @@ public class DBService extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_TIME = "time";
+    public static final String COLUMN_WEATHERENABLED = "weather_enabled";
+    public static final String COLUMN_TRAFFICENABLED = "traffic_enabled";
+
 
     private static final String DATABASE_NAME = "alarm.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
-    private static final String DATABASE_CREATE = "create table " + TABLE_NAME + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_NAME + " text not null, " + COLUMN_TIME + " integer not null);";
+    private static final String DATABASE_CREATE = "create table " + TABLE_NAME + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_NAME + " text not null, " + COLUMN_TIME + " integer not null, " + COLUMN_WEATHERENABLED + " boolean not null, " + COLUMN_TRAFFICENABLED + " boolean not null" + ");";
 
     private Context dbCtx;
 
