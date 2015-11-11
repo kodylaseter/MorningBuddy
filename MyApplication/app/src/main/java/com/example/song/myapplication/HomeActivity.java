@@ -13,11 +13,8 @@ import android.widget.ListView;
 import com.example.song.myapplication.adapters.AlarmAdapter;
 import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
-
 import com.example.song.myapplication.service.CalendarService;
-
 import com.example.song.myapplication.service.SingleShotLocationProvider;
-
 
 import java.lang.reflect.Array;
 import java.sql.SQLException;
@@ -35,12 +32,8 @@ public class HomeActivity extends AppCompatActivity {
         alarmListView = (ListView) findViewById(R.id.alarmListView);
         alarmDBHelper = AlarmDBHelper.getInstance(this);
 
-        ArrayList<Alarm> values = alarmDBHelper.getAlarms();
-
-        //AlarmAdapter adapter = new AlarmAdapter(this, values);
 
         AlarmAdapter adapter = new AlarmAdapter(this, alarmDBHelper.getAlarms());
-
         alarmListView.setAdapter(adapter);
     }
 
@@ -63,12 +56,8 @@ public class HomeActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.weather_settings) {
             Intent  i = new Intent(this, WeatherActivity.class);
-            //startActivity(i);
-
-            //i.putExtra("myobject", wm);
             startActivityForResult(i, 1);
             /**************************************************************************/
            // return result is not used at this moment, can be used for further development
