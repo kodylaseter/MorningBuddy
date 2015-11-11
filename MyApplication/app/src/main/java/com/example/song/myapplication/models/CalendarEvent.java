@@ -10,6 +10,16 @@ public class CalendarEvent {
     public Time startTime;
     public Time endTime;
 
+    public String getName() {
+        return this.name;
+    }
+
+    public Time getStartTime() {
+        return this.startTime;
+    }
+
+    public Time getEndTime() { return this.endTime; }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -22,16 +32,6 @@ public class CalendarEvent {
         this.endTime = time;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public Time getStartTime() {
-        return this.startTime;
-    }
-
-    public Time getEndTime() { return this.endTime; }
-
     /**
      * Custom toString() method
      * Returns time of event in this format: HOURS:MINUTES:AM/PM
@@ -42,7 +42,8 @@ public class CalendarEvent {
         String minute = startTime.minute + "";
         boolean pm = false;
 
-        if (startTime.hour == 0) {
+        //Hour is 0-23, so conditions are to make sure the time will be displayed from 1-12 AM/PM
+        if (startTime.hour == 0) { //"0 o'clock is the same as 12AM
             hour = "12";
         } else if (startTime.hour == 12) {
             pm = true;
@@ -51,10 +52,12 @@ public class CalendarEvent {
             pm = true;
         }
 
+        //Ensures 0-9 will be written 00-09
         if (startTime.minute < 10) {
             minute = "0" + startTime.minute;
         }
 
+        //Ensures AM/PM
         if (pm) {
             return hour + ":" + minute + "PM";
         }
@@ -62,6 +65,10 @@ public class CalendarEvent {
         return hour + ":" + minute + "AM";
     }
 
+    /**
+     * Same as startTimeToString(), but for the endTime
+     * @return
+     */
     public String endTimeToString() {
         String hour = endTime.hour + "";
         String minute = endTime.minute + "";
@@ -86,4 +93,5 @@ public class CalendarEvent {
 
         return hour + ":" + minute + "AM";
     }
+
 }

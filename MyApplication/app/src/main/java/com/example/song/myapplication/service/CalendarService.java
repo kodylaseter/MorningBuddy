@@ -23,22 +23,37 @@ import java.util.List;
  */
 public class CalendarService {
 
-    private static List<CalendarEvent> events;
+    private static List<CalendarEvent> events; //Stores events that have the same date as the alarm
 
     public CalendarService(Context context) {
         events = new ArrayList<CalendarEvent>();
-        readCalendarEvent(context);
+        readCalendarEvent(context); //Populates events, if there are any
     }
 
+    /**
+     * Returns a list of the date's events
+     * @return List<CalendarEvent>
+     */
     public List<CalendarEvent> getEvents() {
         return events;
     }
 
+    /**
+     * Returns an event at the specified position
+     * For instance, position = 5 should return the 5th event of the day, in chronological order
+     * @param position
+     * @return CalendarEvent
+     */
     public CalendarEvent getEvent(int position) {
         return events.get(position);
     }
 
+    /**
+     * Reads all calendar events on android's native calendar and returns the ones that have the same date as the alarm
+     * @param context
+     */
     public void readCalendarEvent(Context context) {
+
         Cursor cursor = context.getContentResolver()
                 .query(
                         Uri.parse("content://com.android.calendar/events"),
@@ -47,13 +62,10 @@ public class CalendarService {
                         null, null);
         cursor.moveToFirst();
 
-        //Time now = new Time();
-        //String timeNow, eventTime;
-
         //Loop through all calendar events, add only the ones that match with when the alarm goes off
         for (int i = 0; i < cursor.getCount(); i++) {
-            //now.setToNow();
 
+            //Creates a Date for today and the calendar event
             Calendar cal1 = Calendar.getInstance();
             Calendar cal2 = Calendar.getInstance();
             Date today = new Date();
@@ -64,6 +76,7 @@ public class CalendarService {
             boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                     cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
 
+            //If the Date is the same, then add it to events
             if (sameDay) {
                 String name = cursor.getString(1);
                 CalendarEvent temp = new CalendarEvent();
@@ -73,44 +86,20 @@ public class CalendarService {
                 events.add(temp);
             }
 
-            /**
-            if (now.getJulianDay(now.toMillis(false),0) == getDate(Long.parseLong(cursor.getString(3))).getJulianDay(Long.parseLong(cursor.getString(3)),0)) {
-                String name = cursor.getString(1);
-                CalendarEvent temp = new CalendarEvent();
-                temp.setName(name);
-                events.add(temp);
-            }
-            */
-
-            /**
-            eventTime = getDate(Long.parseLong(cursor.getString(3)));
-            timeNow = now.toString();
-            if (eventTime.equals(timeNow.substring(0,8))) {
-                String name = cursor.getString(1);
-                CalendarEvent temp = new CalendarEvent();
-                temp.setName(name);
-                events.add(temp);
-            }
-            */
             cursor.moveToNext();
         }
-
     }
 
-
-    public static Time getDate(long milliSeconds) {
-        //SimpleDateFormat formatter = new SimpleDateFormat(
-        //        "dd/MM/yyyy hh:mm:ss a");
-        //Calendar calendar = Calendar.getInstance();
-        //calendar.setTimeInMillis(milliSeconds);
+    /**
+     * Helper method to get the Time version of a calendar event
+     * Used because CalendarEvent has startTime and endTime which are instances of Time
+     * @param milliSeconds
+     * @return Time
+     */
+    private static Time getDate(long milliSeconds) {
         Time t = new Time();
         t.set(milliSeconds);
-        //t.set(calendar.getTimeInMillis());
         return t;
-        //calendar.setTimeInMillis(milliSeconds);
-        //return formatter.format(calendar.getTime());
     }
-
-
 
 }

@@ -21,21 +21,23 @@ import java.util.List;
  */
 public class CalendarAdapter extends ArrayAdapter<CalendarEvent> {
 
-
-
     public CalendarAdapter(Context context, List<CalendarEvent> events) {
         super(context, 0, events);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
+
         CalendarEvent event = super.getItem(position);
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.calendar_list_item, parent, false);
         }
+
         TextView eventName = (TextView) convertView.findViewById(R.id.eventNameTextView);
         TextView eventTime = (TextView) convertView.findViewById(R.id.eventTimeTextView);
         eventName.setText(event.getName());
         eventTime.setText(event.startTimeToString() + " - " + event.endTimeToString());
+
         return convertView;
     }
 }

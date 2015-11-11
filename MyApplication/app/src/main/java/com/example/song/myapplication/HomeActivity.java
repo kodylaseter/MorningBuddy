@@ -13,11 +13,11 @@ import android.widget.ListView;
 import com.example.song.myapplication.adapters.AlarmAdapter;
 import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
-<<<<<<< HEAD
+
 import com.example.song.myapplication.service.CalendarService;
-=======
+
 import com.example.song.myapplication.service.SingleShotLocationProvider;
->>>>>>> 8c5ffb41e098960028638b8e5b35a7684c101037
+
 
 import java.lang.reflect.Array;
 import java.sql.SQLException;
@@ -34,13 +34,13 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         alarmListView = (ListView) findViewById(R.id.alarmListView);
         alarmDBHelper = AlarmDBHelper.getInstance(this);
-<<<<<<< HEAD
+
         ArrayList<Alarm> values = alarmDBHelper.getAlarms();
 
-        AlarmAdapter adapter = new AlarmAdapter(this, values);
-=======
+        //AlarmAdapter adapter = new AlarmAdapter(this, values);
+
         AlarmAdapter adapter = new AlarmAdapter(this, alarmDBHelper.getAlarms());
->>>>>>> 8c5ffb41e098960028638b8e5b35a7684c101037
+
         alarmListView.setAdapter(adapter);
     }
 
