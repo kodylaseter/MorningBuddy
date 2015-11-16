@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
 import com.example.song.myapplication.models.PlaceAutocompleteAdapter;
+import com.example.song.myapplication.service.AlarmManagerService;
 import com.example.song.myapplication.service.AlarmReceiver;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -196,31 +197,14 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         alarm.setTrafficEnabled(trafficSwitch.isChecked());
         alarm.setWeatherEnabled(weatherSwitch.isChecked());
         alarmDBHelper.addAlarm(alarm);
-        setAlarm(alarm.getTimeAsTime());
-
+        AlarmManagerService.getInstance().setAlarm(alarm.getTimeAsTime(), this);
         Intent i = new Intent(this,HomeActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.putExtra("EXIT", true);
         startActivity(i);
 
     }
-    public void setAlarm(Time time) {
-        Calendar calNow = Calendar.getInstance();
-        Calendar calSet = (Calendar) calNow.clone();
-        calSet.setTimeInMillis(System.currentTimeMillis());
-        calSet.set(Calendar.HOUR_OF_DAY, time.getHours());
-        calSet.set(Calendar.MINUTE, time.getMinutes());
-        calSet.set(Calendar.SECOND, 0);
-        calSet.set(Calendar.MILLISECOND, 0);
-        if (calSet.compareTo(calNow) <= 0) {
-            calSet.add(Calendar.DATE, 1);
-        }
-        long t = calSet.getTimeInMillis();
-        Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), pendingIntent);
-    }
+
     public String getWaypointQuery(String origin, String destination){
         String query = "https://maps.googleapis.com/maps/api/distancematrix/json?";
         if(origin != null){
