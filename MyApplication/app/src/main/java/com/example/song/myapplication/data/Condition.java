@@ -23,6 +23,10 @@ public class Condition implements JSONPopulator{
         return description;
     }
 
+    /**
+     * Populate weather condition
+     * @param data, queried weather JSON data
+     */
     @Override
     public void populate(JSONObject data) {
         code = data.optInt("code");

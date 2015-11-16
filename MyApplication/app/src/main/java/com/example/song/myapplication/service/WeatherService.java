@@ -34,13 +34,19 @@ public class WeatherService {
         return location;
     }
 
+    /**
+     * Query method for weather information based on location from Yahoo!Weather
+     * @param l, location
+     */
     public void refreshWeather(String l) {
         this.location = l;
         new AsyncTask<String, Void, String>() {
             @Override
             protected String doInBackground(String... strings) {
                 Log.d("location", strings[0]);
-                String query = String.format("select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"%s\")", strings[0]);
+                //query statement based on location
+                String query = String.format("select * from weather.forecast where woeid in (select woeid from geo.places(1) where text in (select line2 from geo.placefinder where text=\"%s\" and gflags=\"R\"))", strings[0]);
+                //API uri address
                 String endpoint = String.format("https://query.yahooapis.com/v1/public/yql?q=%s&format=json", Uri.encode(query));
 
                 try {
@@ -69,7 +75,6 @@ public class WeatherService {
                 }
                 try {
                     JSONObject data = new JSONObject(s);
-
                     JSONObject queryResult = data.optJSONObject("query");
                     int count = queryResult.optInt("count");
                     if (count == 0) {
@@ -78,7 +83,7 @@ public class WeatherService {
                     }
 
                     Channel channel = new Channel();
-                    channel.populate(queryResult.optJSONObject("results").optJSONObject("channel"));
+                    channel.populate(queryResult.optJSONObject("results").optJSONObject("channel")); //return queried results
                     callback.serviceSuccess(channel);
                 } catch (JSONException e) {
                     callback.serviceFailure(e);

@@ -10,6 +10,8 @@ public class Channel implements JSONPopulator{
     private Units units;
     private Item item;
 
+    private String location;
+
     public Units getUnits() {
         return units;
     }
@@ -18,6 +20,14 @@ public class Channel implements JSONPopulator{
         return item;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * Extract weather information from queried JSON
+     * @param data, queried JSON results
+     */
     @Override
     public void populate(JSONObject data) {
         units = new Units();
@@ -25,5 +35,7 @@ public class Channel implements JSONPopulator{
 
         item = new Item();
         item.populate(data.optJSONObject("item"));
+
+        location = data.optJSONObject("location").optString("city") + ", " + data.optJSONObject("location").optString("region");
     }
 }

@@ -13,6 +13,10 @@ public class Item implements JSONPopulator {
         return condition;
     }
 
+    /**
+     * Condition is under category of item
+     * @param data, queried weather JSON data
+     */
     @Override
     public void populate(JSONObject data) {
         condition = new Condition();
