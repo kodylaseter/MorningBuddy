@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="95758a2905669affbffc5ddd262921d375674fad">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-7408f4cad5b4c88217633c48b28c392afb728f42.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="041d93cf0533591c29d1d7263b2fa114dbfb20bd">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-6fb0b9593899f9f673daf0f0bdbb434425358503.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\jettison-1.3.3\jettison-1.3.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8e7d1b29e8da3c584d389019b28260ba71b57bb6">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\jettison-1.3.3-b92616fe276c259156c11872cd3817b4f3ead5c8.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="9cf8c0ef60847621c7ad00b4f78dbfc9daba4af2">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-c835e803010849c91201588d96a996a94694aa71.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d294caf562c4c678b2ef351662a0ca6f1a4d06c0">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-6f23000468d80c5bb88d3e6cd32dbe9c8e40c134.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3178362320bcf51228835b60ff978efadfd1f783">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-5a08f5134769a721eb55ffa15482f1eda13f6908.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3c729e6d76a36c5dc27e6a4c4009296f49eaa88a">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-cf40cdab5ec092dd05497699b038fb8f56ecee65.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-1884195b5865c20014acb34d0aed5428030db359.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-fb4a96bbd7cb4515b08e6244cc53896f33b938f1.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0632f06970823b7e3436f649bfa65b47035c91d0">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-8ae9413123dd90a5d0ef5150b1390633704da012.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d96886efea7cc74fbb3abd0e3b51d5638fc57be0">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-68e286cd9734bc53c2b9ad5dbeb7ac9c535925af.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="82825756edeeb3b56b15e73b2edd56e93da5a444">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-f2c94d68a716e62397daee5e141c57b4d957a876.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-98ea28d02cf3f84f3785a544530d279ab272e9f7.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="993834cb17d07d51b92db89d2c330243592ebf77">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-729832c27294316c9720ea14b6e5daeb621675b2.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\support-annotations-23.1.0-06f8bc82a0aacb18bbc5ec97d2c2655df64bfb41.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-61e07ad13de01c3e9387a73521d30ac53fc25af7.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="97f3b099801a9ad9d70e835b9125273e986eb68d">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-80e45bf16e18ddaf02bd7d6ab70614bbc8f999a8.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3aed37c38c56679602255dd72ef356da5d327cda">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-e0ef55d7d2e6ca94342fa3656d626a8263a226c8.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-9e2e59a6c8e601a64a30b03e65874a8751c6080b.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="dcb5b75baf05d92e61d5706737200ee55949f97b">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-5569f57b66fe143d5766457c36a62fb1cd74e4d0.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d93480da1d303122ee67dc3bc23e6297bdef9951">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-3d990df62f334722ebcc0baf59816ca1e96bedff.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="997773777cf3904c11d6764fe3b7668538220e49">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-b0b956a6746aa1686237abff150ec371491ee190.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="482de223655d06253cc6a4955d653f8994169500">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-a1a34453f56bf3411a3cb4760ea309a9996961a0.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="dcf8c83c3dead00a6c4fe313e95f7aaca20dc641">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-5177c0180d6cc2473606c5ed84d034202115d258.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="17449c47df35c754b257532052f1270c444f7993">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-3d869074b93db5927f4830700610c2ebda10ddc9.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="325788a04b436a0bccbc5b4c54cf0f12ebdcbd2d">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-3ffd016905139e9c93dcbb75340f8a5fd19d3ab5.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="2a7e47da654546f9457deb6132364f1bf33a1857">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-b991d53a7e773b65bde7b9f62ff013c5121f9919.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3b05c18f60969ecc2ba49c0409c4b96be2d9cb0c">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-421c1254de8f4c7a75f4444714050de8ece03c53.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="b92002cb2f0e11a226ac5bac6dff1dc2a9d0b774">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-83b316dd2449839faa5b45992a2682c6e2cac5c4.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d61920aba361832a9545a43fa8c9453eb02f18f7">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-03c283fdb09d86575f386c26081fadced4b174e7.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.android.support\gridlayout-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3713f30726299231eddfb206043ebb72a2519b6f">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-a7ea33a8a16758cec9a40c051a39adcb3652cd66.jar" />
+    </item>
+    <item
+        jar="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="82054090e487d78e163a988557db62d809fa9b95">
+        <dex dex="C:\Users\kenta\Documents\GitHub\MorningBuddy\NetworkConnect\Application\build\intermediates\pre-dexed\debug\classes-213ddbf3ff1191cb803fce63c966456dbe83b825.jar" />
+    </item>
+
+</items>
