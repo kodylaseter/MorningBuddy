@@ -4,3 +4,4 @@
 /.idea/libraries
 .DS_Store
 /build
+/MyApplication/app/src/main/AndroidManifest.xml
