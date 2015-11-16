@@ -13,6 +13,10 @@ public class Units implements JSONPopulator{
         return temperature;
     }
 
+    /**
+     * Populate weather temperature information
+     * @param data, queried weather JSON data
+     */
     @Override
     public void populate(JSONObject data) {
         temperature = data.optString("temperature");

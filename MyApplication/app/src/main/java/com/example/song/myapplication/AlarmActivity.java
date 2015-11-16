@@ -2,11 +2,13 @@ package com.example.song.myapplication;
 
 import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,6 +37,11 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //small snippet code for waking up device
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+
         setContentView(R.layout.activity_alarm);
 
         weatherIconImageView = (ImageView)findViewById(R.id.weatherIconImageView);
@@ -49,6 +56,8 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
 
         service = new WeatherService(this);
 
+        Handler handler = new Handler();
+
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
@@ -60,7 +69,17 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
                         service.refreshWeather(location.toString());
                     }
                 });
-//        service.refreshWeather("new york, NY");
+        // dismiss the progress bar if no location information is found after 5 seconds
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (dialog != null) {
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                }
+            }
+        }, 5000);
     }
 
     @Override
@@ -85,6 +104,10 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Display weather information on screen
+     * @param channel, queried results
+     */
     @Override
     public void serviceSuccess(Channel channel) {
         dialog.hide();
@@ -96,14 +119,18 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
         weatherIconImageView.setImageDrawable(weatherIconDrawable);
         temperatureTextView.setText(item.getCondition().getTemperature() + "\u00B0" + channel.getUnits().getTemperature());
         conditionTextView.setText(item.getCondition().getDescription());
-       // locationTextView.setText(service.getLocation());
         locationTextView.setText(channel.getLocation());
     }
 
+    /**
+     * Raise exception if error
+     * @param exception
+     */
     @Override
     public void serviceFailure(Exception exception) {
         dialog.hide();
         Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
     }
+
 
 }

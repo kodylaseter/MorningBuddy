@@ -18,12 +18,6 @@ public class WeatherMonitor implements Serializable {
         return weatherMonitor;
     }
 
-//    public WeatherMonitor(int snow, int windy, int storm) {
-//        snowTime = snow;
-//        windyTime = windy;
-//        stormTime = storm;
-//    }
-
     public WeatherMonitor() {}
 
     public int getSnowTime() {
