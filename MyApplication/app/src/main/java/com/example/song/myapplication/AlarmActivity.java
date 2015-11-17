@@ -60,7 +60,7 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
                         service.refreshWeather(location.toString());
                     }
                 });
-//        service.refreshWeather("new york, NY");
+
     }
 
     @Override

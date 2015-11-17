@@ -197,12 +197,11 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         alarm.setTrafficEnabled(trafficSwitch.isChecked());
         alarm.setWeatherEnabled(weatherSwitch.isChecked());
         alarmDBHelper.addAlarm(alarm);
-        AlarmManagerService.getInstance().setAlarm(alarm.getTimeAsTime(), this);
+        AlarmManagerService.getInstance().setAlarm(alarm, this);
         Intent i = new Intent(this,HomeActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.putExtra("EXIT", true);
         startActivity(i);
-
     }
 
     public String getWaypointQuery(String origin, String destination){

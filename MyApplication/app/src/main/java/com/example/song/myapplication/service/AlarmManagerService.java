@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 
 
+import com.example.song.myapplication.NewAlarmActivity;
+import com.example.song.myapplication.models.Alarm;
+
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,13 +19,14 @@ import java.util.Date;
 public class AlarmManagerService {
 
     private static AlarmManagerService ams;
-
+    public static final String ALARM_ID = "alarmID";
     public static AlarmManagerService getInstance() {
         if (ams == null) ams = new AlarmManagerService();
         return ams;
     }
 
-    public void setAlarm(Time time, Context ctx) {
+    public void setAlarm(Alarm alarm, Context ctx) {
+        Time time = alarm.getTimeAsTime();
         Calendar calNow = Calendar.getInstance();
         Calendar calSet = (Calendar) calNow.clone();
         calSet.setTimeInMillis(System.currentTimeMillis());
@@ -35,7 +39,8 @@ public class AlarmManagerService {
         }
         long t = calSet.getTimeInMillis();
         Intent intent = new Intent(ctx, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(ctx, 0, intent, 0);
+        intent.putExtra(ALARM_ID, alarm.getId());
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), pendingIntent);
     }
