@@ -14,8 +14,10 @@ public class Alarm {
     private int time; //time in millis since
     private boolean weatherEnabled;
     private boolean trafficEnabled;
+    private String origin;
+    private String destination;
 
-    public Alarm(long id, String name, int minutesAfterMidnight, boolean weatherEnabled, boolean trafficEnabled) {
+    public Alarm(long id, String name, int minutesAfterMidnight, boolean weatherEnabled, boolean trafficEnabled, String origin, String destination) {
         this.id = id;
         this.name = name;
         this.time = minutesAfterMidnight;
@@ -95,5 +97,21 @@ public class Alarm {
 
     public void setTrafficEnabled(boolean trafficEnabled) {
         this.trafficEnabled = trafficEnabled;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 }
