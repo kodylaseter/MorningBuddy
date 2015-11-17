@@ -21,10 +21,13 @@ public class Channel implements JSONPopulator{
     }
 
     public String getLocation() {
-
         return location;
     }
 
+    /**
+     * Extract weather information from queried JSON
+     * @param data, queried JSON results
+     */
     @Override
     public void populate(JSONObject data) {
         units = new Units();

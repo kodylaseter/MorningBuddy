@@ -5,7 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v7.app.ActionBarActivity;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,9 +67,11 @@ public class WeatherActivity extends AppCompatActivity implements WeatherService
         stormOnSwitch = (Switch)findViewById(R.id.stormSwitch);
         saveButton = (Button)findViewById(R.id.saveButton);
 
+        //weather monitoring time adjustment switches
         CompoundButton.OnCheckedChangeListener switchListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //if the user enables the weather monitoring
                 if (buttonView.getId() == R.id.snowSwitch) {
                     if (isChecked) {
                         onPassSnowAdjustTime = Integer.parseInt(snowAdjustTime.getText().toString());
@@ -85,12 +87,13 @@ public class WeatherActivity extends AppCompatActivity implements WeatherService
                 }
             }
         };
-
+        //add listener to the switches
         snowOnSwitch.setOnCheckedChangeListener(switchListener);
         windyOnSwitch.setOnCheckedChangeListener(switchListener);
         stormOnSwitch.setOnCheckedChangeListener(switchListener);
 
-        service = new WeatherService(this);
+        service = new WeatherService(this); //calling weather query function
+        Handler handler = new Handler();    //handler for dismiss progress bar
 
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
@@ -102,12 +105,20 @@ public class WeatherActivity extends AppCompatActivity implements WeatherService
                     public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
                         Log.d("Location", "my location is " + location.toString());
                         System.out.println(location.toString());
-                        service.refreshWeather(location.toString());
+                        service.refreshWeather(location.toString());    //querying weather information
                     }
                 });
 
-        //service.refreshWeather("37.416275,-122.025092");
-
+        // dismiss the progress bar if no location information is found after 5 seconds
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if (dialog != null) {
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                }
+            }
+        }, 5000);
     }
 
     @Override
@@ -132,35 +143,48 @@ public class WeatherActivity extends AppCompatActivity implements WeatherService
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Display weather information on the screen based on query
+     * @param channel, the returned query results
+     */
     @Override
     public void serviceSuccess(Channel channel) {
-        dialog.hide();
-
+        dialog.hide();  //hide the progress bar
         Item item = channel.getItem();
         int res = getResources().getIdentifier("drawable/c_" + item.getCondition().getCode(), null, getPackageName());
 
-        Drawable weatherIconDrawable = getResources().getDrawable(res);
+        Drawable weatherIconDrawable = getResources().getDrawable(res); //get weather icon from directory
+
+        //display information on screen
         weatherIconImageView.setImageDrawable(weatherIconDrawable);
         temperatureTextView.setText(item.getCondition().getTemperature() + "\u00B0" + channel.getUnits().getTemperature());
         conditionTextView.setText(item.getCondition().getDescription());
-        //locationTextView.setText(service.getLocation());
         locationTextView.setText(channel.getLocation());
     }
 
+    /**
+     * if failed to query weather information
+     * @param exception
+     */
     @Override
     public void serviceFailure(Exception exception) {
         dialog.hide();
         Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
     }
+
+    /**
+     * Saving weather monitoring time adjustment to the database for future alarm adjustment
+     * @param view
+     */
     @TargetApi(Build.VERSION_CODES.M)
     public void weatherAdjustSaveButton(View view) {
-
-        //WeatherMonitor wm = new WeatherMonitor(onPassSnowAdjustTime, onPassWindyAdjustTime, onPassStormAdjustTime);
         WeatherMonitor wm = WeatherMonitor.getInstance();
         wm.setSnowTime(onPassSnowAdjustTime);
         wm.setStormTime(onPassStormAdjustTime);
         wm.setWindyTime(onPassWindyAdjustTime);
 
+        //The method is not used, it could return information back to previous screen if desired
+        /*
         Intent i = new Intent();
         i.putExtra("weatherMonitor", wm);
         setResult(RESULT_OK, i);
@@ -170,7 +194,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherService
                 dialog.dismiss();
             }
         }
-
-        finish();
+        */
+        finish(); //terminate current screen and return to previous screen
     }
 }
