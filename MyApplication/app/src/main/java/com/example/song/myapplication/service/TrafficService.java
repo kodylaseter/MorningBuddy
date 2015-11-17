@@ -1,6 +1,5 @@
 package com.example.song.myapplication.service;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 
 import com.example.song.myapplication.NewAlarmActivity;
@@ -15,7 +14,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DecimalFormat;
 
 /**
  * Created by Kody on 11/16/2015.
@@ -48,7 +46,7 @@ public class TrafficService {
         protected String doInBackground(String... urls) {
             //Proof of Concept of ugliness.
             double totalTime = 0;
-            String theUrl = getWaypointQuery(start, end);
+            String theUrl = getQuery(start, end);
             InputStream inputStream = null;
             String json = "";
             String time = "";
@@ -77,7 +75,7 @@ public class TrafficService {
         }
     }
 
-    public String getWaypointQuery(String origin, String destination) {
+    public String getQuery(String origin, String destination) {
         String query = "https://maps.googleapis.com/maps/api/distancematrix/json?";
         if(origin != null){
             query += "origins=" + origin.replace(" ", "+");

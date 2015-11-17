@@ -203,6 +203,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         Alarm alarm = new Alarm();
         alarm.setName(name.getText().toString());
         int alarmTime = (timePicker.getCurrentHour() * 60) + timePicker.getCurrentMinute();
+
         alarm.setTime(alarmTime);
         alarm.setTrafficEnabled(trafficSwitch.isChecked());
         alarm.setWeatherEnabled(weatherSwitch.isChecked());
