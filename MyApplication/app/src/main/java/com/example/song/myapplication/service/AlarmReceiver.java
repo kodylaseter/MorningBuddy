@@ -16,7 +16,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent arg1) {
-        String test = arg1.getStringExtra(AlarmManagerService.ALARM_ID);
+        int id = Integer.parseInt(arg1.getStringExtra(AlarmManagerService.ALARM_ID));
+        String origin = arg1.getStringExtra(AlarmManagerService.ORIGIN);
+        String dest = arg1.getStringExtra(AlarmManagerService.DESTINATION);
         Intent i = new Intent(context, AlarmActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);

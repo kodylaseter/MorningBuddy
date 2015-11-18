@@ -26,14 +26,16 @@ public class Alarm {
     }
 
     //passing traffic and weather as 0 or 1. probably to be used by db
-    public Alarm(long id, String name, int minutesAfterMidnight, int weatherEnabled, int trafficEnabled) {
+    public Alarm(long id, String name, int minutesAfterMidnight, int weatherEnabled, int trafficEnabled, String origin, String destination) {
         this.id = id;
         this.name = name;
         this.time = minutesAfterMidnight;
         this.weatherEnabled = weatherEnabled == 1;
         this.trafficEnabled = trafficEnabled == 1;
-
+        this.origin = origin;
+        this.destination = destination;
     }
+
 
     public Alarm() {
     }

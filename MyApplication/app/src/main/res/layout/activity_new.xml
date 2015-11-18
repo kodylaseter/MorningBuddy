@@ -91,7 +91,7 @@
             android:orientation="horizontal">
 
             <AutoCompleteTextView
-                android:id="@+id/trafficLocation"
+                android:id="@+id/trafficOrigin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLength="30"

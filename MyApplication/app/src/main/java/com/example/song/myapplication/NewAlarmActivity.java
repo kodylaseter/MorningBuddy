@@ -1,14 +1,8 @@
 package com.example.song.myapplication;
 
-import android.annotation.TargetApi;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -22,7 +16,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -30,7 +23,6 @@ import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
 import com.example.song.myapplication.models.PlaceAutocompleteAdapter;
 import com.example.song.myapplication.service.AlarmManagerService;
-import com.example.song.myapplication.service.AlarmReceiver;
 import com.example.song.myapplication.service.TrafficService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -43,26 +35,13 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.Time;
-import java.text.DecimalFormat;
-import java.util.Calendar;
-
 /**
  * Created by song on 10/19/2015 0019.
  */
 public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     AlarmDBHelper alarmDBHelper;
     EditText name;
-    AutoCompleteTextView trafficLocation;
+    AutoCompleteTextView trafficOrigin;
     Switch trafficSwitch;
     Switch weatherSwitch;
     EditText weatherLocation;
@@ -91,7 +70,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         name = (EditText)findViewById(R.id.nameText);
         trafficSwitch = (Switch)findViewById(R.id.trafficSwitch);
         weatherSwitch = (Switch)findViewById(R.id.weatherSwitch);
-        trafficLocation = (AutoCompleteTextView)findViewById(R.id.trafficLocation); //starting
+        trafficOrigin = (AutoCompleteTextView)findViewById(R.id.trafficOrigin); //starting
         trafficDestination = (AutoCompleteTextView)findViewById(R.id.trafficDestination); //destination
         weatherLocation = (EditText)findViewById(R.id.weatherLocation);
         timePicker = (TimePicker)findViewById(R.id.timePicker);
@@ -99,8 +78,8 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         mDestination = (Button)findViewById(R.id.mapbut2);
         //mTime = (Button)findViewById(R.id.timebut);
         //mdisplaytime = (TextView)findViewById(R.id.displaytime);
-        mBut1 = (Button)findViewById(R.id.mapbut1);
-        mBut2 = (Button)findViewById(R.id.mapbut2);
+        //mBut1 = (Button)findViewById(R.id.mapbut1);
+        //mBut2 = (Button)findViewById(R.id.mapbut2);
 
         CompoundButton.OnCheckedChangeListener switchListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -108,18 +87,14 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
                 if (buttonView.getId() == R.id.trafficSwitch) {
                     if (isChecked) {
                         trafficDestination.setVisibility(View.VISIBLE);
-                        trafficLocation.setVisibility(View.VISIBLE);
+                        trafficOrigin.setVisibility(View.VISIBLE);
                         mStart.setVisibility(View.VISIBLE);
                         mDestination.setVisibility(View.VISIBLE);
-                        //mTime.setVisibility(View.VISIBLE);
-                        //mdisplaytime.setVisibility(View.VISIBLE);
                     } else {
                         trafficDestination.setVisibility(View.GONE);
-                        trafficLocation.setVisibility(View.GONE);
+                        trafficOrigin.setVisibility(View.GONE);
                         mStart.setVisibility(View.GONE);
                         mDestination.setVisibility(View.GONE);
-                        //mTime.setVisibility(View.GONE);
-                        //mdisplaytime.setVisibility(View.GONE);
                     }
                 } else if (buttonView.getId() == R.id.weatherSwitch) {
                     if (isChecked) {
@@ -133,17 +108,17 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
                 .addApi(Places.GEO_DATA_API)
                 .build();
         trafficDestination.setOnItemClickListener(mAutocompleteClickListener);
-        trafficLocation.setOnItemClickListener(mAutocompleteClickListener);
+        trafficOrigin.setOnItemClickListener(mAutocompleteClickListener);
         mAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, BOUNDS_GREATER_SYDNEY,
                 null);
         trafficDestination.setAdapter(mAdapter);
-        trafficLocation.setAdapter(mAdapter);
+        trafficOrigin.setAdapter(mAdapter);
 
 //        mTime.setOnClickListener(new View.OnClickListener() {
 //            public void onClick(View view) {
 //                String start, end;
-//                if (trafficLocation != null || !trafficLocation.getText().toString().equals("")) {
-//                    start = trafficLocation.getText().toString();
+//                if (trafficOrigin != null || !trafficOrigin.getText().toString().equals("")) {
+//                    start = trafficOrigin.getText().toString();
 //                    if (trafficDestination != null || !trafficDestination.getText().toString().equals("")) {
 //                        end = trafficDestination.getText().toString();
 //                        TrafficService.getInstance().getTimeEstimate(start, end);
@@ -183,15 +158,18 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 String stredittext = data.getStringExtra("edittextvalue");
-                trafficLocation.setText(stredittext);
+                trafficOrigin.setText(stredittext);
             }
         }
     }
 
     public void initialAddAlarm(View view) {
+        start = trafficOrigin.getText().toString();
+        end = trafficDestination.getText().toString();
         if ((start != null && !start.equals(""))
                 &&
                 (end != null && !end.equals(""))) {
+
             TrafficService.getInstance().getTimeEstimate(start, end, this);
         } else {
             finishAddAlarm(0);
@@ -210,8 +188,8 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         alarm.setOrigin(start);
         alarm.setDestination(end);
         double test = timeEstimate;
-        alarmDBHelper.addAlarm(alarm);
-        AlarmManagerService.getInstance().setAlarm(alarm, this);
+        Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
+        AlarmManagerService.getInstance().setAlarm(realAlarm, this);
         Intent i = new Intent(this,HomeActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.putExtra("EXIT", true);
