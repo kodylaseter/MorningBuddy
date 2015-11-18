@@ -91,9 +91,10 @@
             android:orientation="horizontal">
 
             <AutoCompleteTextView
-                android:id="@+id/trafficLocation"
+                android:id="@+id/trafficOrigin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLength="30"
                 android:hint="Starting location"
                 android:singleLine="true"
                 android:visibility="gone" />
@@ -117,6 +118,7 @@
                 android:id="@+id/trafficDestination"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLength="30"
                 android:hint="Destination"
                 android:singleLine="true"
                 android:visibility="gone" />
@@ -137,20 +139,20 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Time"
-                android:id="@+id/displaytime"
-                android:visibility="gone"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                <!--android:text="Time"-->
+                <!--android:id="@+id/displaytime"-->
+                <!--android:visibility="gone"/>-->
 
-            <Button
-                android:id="@+id/timebut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Time"
-                android:visibility="gone"/>
+            <!--<Button-->
+                <!--android:id="@+id/timebut"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Time"-->
+                <!--android:visibility="gone"/>-->
 
             <Button
                 android:id="@+id/button"
@@ -158,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/snowAdjustTime"
                 android:layout_centerHorizontal="true"
-                android:onClick="createAlarmClicked"
+                android:onClick="initialAddAlarm"
                 android:text="Add" />
         </LinearLayout>
 
