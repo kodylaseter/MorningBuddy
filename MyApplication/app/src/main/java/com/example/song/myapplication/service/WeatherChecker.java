@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.example.song.myapplication.data.Channel;
 import com.example.song.myapplication.data.Condition;
 import com.example.song.myapplication.data.Item;
+import com.example.song.myapplication.data.WeatherConditionStates;
 import com.example.song.myapplication.models.Alarm;
 
 /**
@@ -19,11 +20,13 @@ public class WeatherChecker implements WeatherServiceCallback {
     private WeatherService weatherService;
     private Context ctx;
     private Alarm alarm;
+    private WeatherConditionStates wcs;
 
     public WeatherChecker(AlarmReceiver alarmReceiver, Context ctx) {
         this.alarmReceiver = alarmReceiver;
         this.weatherService = new WeatherService(this);
         this.ctx = ctx;
+        this.wcs = WeatherConditionStates.getInstance();
     }
 
     public void checkWeather(Alarm alarm) {
@@ -49,22 +52,23 @@ public class WeatherChecker implements WeatherServiceCallback {
 
         ////////
         WeatherState weather;
-        String weatherCondition = item.getCondition().getDescription().toLowerCase();
+        //String weatherCondition = item.getCondition().getDescription().toLowerCase();
+        int weatherConditionCode = item.getCondition().getCode();
 
-        if (weatherCondition.contains("snow")) {
-            weather = WeatherState.snow;
-        } else if (weatherCondition.contains("storm")) {
-            weather = WeatherState.storm;
-        } else if (weatherCondition.contains("wind")) {
-            weather = WeatherState.wind;
-        } else {
-            weather = WeatherState.other;
+        switch(wcs.weatherConditionState(weatherConditionCode)) {
+            case "snow":
+                weather = WeatherState.snow;
+                break;
+            case "storm":
+                weather = WeatherState.storm;
+                break;
+            case "wind":
+                weather = WeatherState.wind;
+                break;
+            default:
+                weather = WeatherState.other;
+                break;
         }
-//        WeatherState weather = WeatherState.snow; //you can use this variable
-
-
-
-
 
         this.alarmReceiver.finishWeatherCheck(this.alarm);
     }
@@ -77,5 +81,4 @@ public class WeatherChecker implements WeatherServiceCallback {
     public enum WeatherState {
         snow, storm, wind, other;
     }
-
 }
