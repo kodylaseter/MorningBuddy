@@ -14,55 +14,48 @@
    limitations under the License.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/vertical_page_margin"
+    android:paddingLeft="@dimen/horizontal_page_margin"
+    android:paddingRight="@dimen/horizontal_page_margin"
+    android:paddingTop="@dimen/vertical_page_margin">
 
-    <LinearLayout
+    <AutoCompleteTextView
+        android:id="@+id/autocomplete_places"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/autocomplete_hint"
+        android:singleLine="true" />
+
+    <Button
+        android:id="@+id/button_clear"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_text" />
+
+    <fragment
+        android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/vertical_page_margin"
-        android:paddingLeft="@dimen/horizontal_page_margin"
-        android:paddingRight="@dimen/horizontal_page_margin"
-        android:paddingTop="@dimen/vertical_page_margin">
-
-        <AutoCompleteTextView
-            android:id="@+id/autocomplete_places"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:hint="@string/autocomplete_hint"
-            android:singleLine="true" />
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        class="com.google.android.gms.maps.SupportMapFragment">
 
         <Button
-            android:id="@+id/button_clear"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/autocomplete_places"
-            android:text="@string/clear_text" />
+            android:layout_gravity="right|bottom"
+            android:id="@+id/donebutton"
+            android:text="Done"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:paddingRight="10dp"/>
 
-        <fragment
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/autocomplete_places"
-            xmlns:map="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            class="com.google.android.gms.maps.SupportMapFragment">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
-                android:id="@+id/donebutton"
-                android:text="Done"
-                android:padding="10dp"
-                android:layout_marginTop="20dp"
-                android:paddingRight="10dp"/>
-
-        </fragment>
-
-    </LinearLayout>
-</RelativeLayout>
+    </fragment>
+</LinearLayout>

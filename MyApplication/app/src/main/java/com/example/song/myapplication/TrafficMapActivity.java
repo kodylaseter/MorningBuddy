@@ -194,8 +194,7 @@ public class TrafficMapActivity extends FragmentActivity
 
 
 
-            Toast.makeText(getApplicationContext(), "Clicked: " + primaryText,
-                    Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Clicked: " + primaryText, Toast.LENGTH_SHORT).show();
         }
     };
 
