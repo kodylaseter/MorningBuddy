@@ -14,7 +14,7 @@
         android:required="true"/>
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="14"
         android:targetSdkVersion="22" />
 
     <application
@@ -29,7 +29,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCmUxwBLrY2cP5TKCTxCUIPKaG3QO7ARiM"/>
+            android:value="AIzaSyAYdtMtT9c1yunHaot4vxPfpd20E_WHBGA"/>
 
         <activity
             android:name=".WeatherActivity"
@@ -38,6 +38,10 @@
         <activity
             android:name=".NewAlarmActivity"
             android:label="Add an Alarm" >
+        </activity>
+        <activity
+            android:name=".TrafficMapActivity"
+            android:label="MapView" >
         </activity>
         <activity
             android:name=".HomeActivity"

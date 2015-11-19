@@ -1,4 +1,4 @@
-package com.example.song.myapplication.models;
+package com.example.song.myapplication.adapters;
 
 /**
  * Created by kenta on 11/5/2015.

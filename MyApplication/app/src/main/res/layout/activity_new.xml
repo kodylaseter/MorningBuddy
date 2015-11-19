@@ -94,10 +94,9 @@
                 android:id="@+id/trafficOrigin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLength="30"
                 android:hint="Starting location"
-                android:singleLine="true"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/mapbut1"
@@ -116,12 +115,11 @@
 
             <AutoCompleteTextView
                 android:id="@+id/trafficDestination"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="30"
                 android:hint="Destination"
-                android:singleLine="true"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/mapbut2"
