@@ -19,11 +19,12 @@ import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.song.myapplication.adapters.PlaceAutocompleteAdapter;
 import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
-import com.example.song.myapplication.models.AlarmType;import com.example.song.myapplication.service.AlarmManagerService;
+import com.example.song.myapplication.models.AlarmType;
+import com.example.song.myapplication.service.AlarmManagerService;
 import com.example.song.myapplication.service.TrafficService;
-import com.example.song.myapplication.service.Utilities;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
