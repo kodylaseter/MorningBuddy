@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.widget.Toast;
 
 import com.example.song.myapplication.data.Channel;
+import com.example.song.myapplication.data.Condition;
 import com.example.song.myapplication.data.Item;
 import com.example.song.myapplication.models.Alarm;
 
@@ -47,7 +48,24 @@ public class WeatherChecker implements WeatherServiceCallback {
         //idk if there's an easy way to do this from the yahoo api or if you'll have to write a regex or string search thing.
 
         ////////
-        WeatherState weather = WeatherState.snow; //you can use this variable
+        WeatherState weather;
+        String weatherCondition = item.getCondition().getDescription().toLowerCase();
+
+        if (weatherCondition.contains("snow")) {
+            weather = WeatherState.snow;
+        } else if (weatherCondition.contains("storm")) {
+            weather = WeatherState.storm;
+        } else if (weatherCondition.contains("wind")) {
+            weather = WeatherState.wind;
+        } else {
+            weather = WeatherState.other;
+        }
+//        WeatherState weather = WeatherState.snow; //you can use this variable
+
+
+
+
+
         this.alarmReceiver.finishWeatherCheck(this.alarm);
     }
 
