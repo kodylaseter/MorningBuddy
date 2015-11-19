@@ -21,9 +21,7 @@ import android.widget.Toast;
 
 import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
-import com.example.song.myapplication.models.AlarmType;
-import com.example.song.myapplication.models.PlaceAutocompleteAdapter;
-import com.example.song.myapplication.service.AlarmManagerService;
+import com.example.song.myapplication.models.AlarmType;import com.example.song.myapplication.service.AlarmManagerService;
 import com.example.song.myapplication.service.TrafficService;
 import com.example.song.myapplication.service.Utilities;
 import com.google.android.gms.common.ConnectionResult;
@@ -80,8 +78,6 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         mDestination = (Button)findViewById(R.id.mapbut2);
         //mTime = (Button)findViewById(R.id.timebut);
         //mdisplaytime = (TextView)findViewById(R.id.displaytime);
-        //mBut1 = (Button)findViewById(R.id.mapbut1);
-        //mBut2 = (Button)findViewById(R.id.mapbut2);
 
         CompoundButton.OnCheckedChangeListener switchListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -115,6 +111,21 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
                 null);
         trafficDestination.setAdapter(mAdapter);
         trafficOrigin.setAdapter(mAdapter);
+
+        mStart.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), TrafficMapActivity.class);
+                myIntent.putExtra("requestCode", 1);
+                startActivityForResult(myIntent, 1);
+            }
+        });
+        mDestination.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), TrafficMapActivity.class);
+                myIntent.putExtra("requestCode", 2);
+                startActivityForResult(myIntent, 2);
+            }
+        });
 
 //        mTime.setOnClickListener(new View.OnClickListener() {
 //            public void onClick(View view) {
@@ -159,8 +170,14 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                String stredittext = data.getStringExtra("edittextvalue");
-                trafficOrigin.setText(stredittext);
+                String mapviewStartingLoc = data.getStringExtra("mapviewStartingLoc");
+                trafficOrigin.setText(mapviewStartingLoc);
+            }
+        }
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                String mapviewDestinationLoc = data.getStringExtra("mapviewDestinationLoc");
+                trafficDestination.setText(mapviewDestinationLoc);
             }
         }
     }

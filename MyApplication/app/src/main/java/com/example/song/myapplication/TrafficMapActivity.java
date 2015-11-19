@@ -1,4 +1,4 @@
-package com.example.song.myapplication.service;
+package com.example.song.myapplication;
 
 /**
  * Created by kenta on 11/5/2015.
@@ -17,8 +17,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.song.myapplication.R;
-import com.example.song.myapplication.models.PlaceAutocompleteAdapter;
+import com.example.song.myapplication.adapters.PlaceAutocompleteAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -129,12 +128,29 @@ public class TrafficMapActivity extends FragmentActivity
     }
 
     public void onClick(View v) {
-        setContentView(R.layout.activity_new);
+        int requestCode = getIntent().getExtras().getInt("requestCode");
+        if(requestCode == 1){
+            Intent intent = new Intent();
+            if(coordData != null){
+                intent.putExtra("mapviewStartingLoc", coordData.latitude + "," + coordData.longitude);
+            }else{
+                intent.putExtra("mapviewStartingLoc", "");
+            }
+            coordData = null;
+            setResult(RESULT_OK, intent);
+            finish();
+        }else{
+            Intent intent = new Intent();
+            if(coordData != null){
+                intent.putExtra("mapviewDestinationLoc", coordData.latitude + "," + coordData.longitude);
+            }else{
+                intent.putExtra("mapviewDestinationLoc", "");
+            }
+            coordData = null;
+            setResult(RESULT_OK, intent);
+            finish();
+        }
 
-        Intent intent = new Intent();
-        intent.putExtra("edittextvalue", coordData.latitude + "," + coordData.longitude);
-        setResult(RESULT_OK, intent);
-        finish();
     }
 
 
