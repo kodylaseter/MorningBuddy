@@ -45,7 +45,6 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
     AutoCompleteTextView trafficOrigin;
     Switch trafficSwitch;
     Switch weatherSwitch;
-    EditText weatherLocation;
     AutoCompleteTextView trafficDestination;
     TimePicker timePicker;
     GoogleApiClient mGoogleApiClient;
@@ -73,12 +72,10 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         weatherSwitch = (Switch)findViewById(R.id.weatherSwitch);
         trafficOrigin = (AutoCompleteTextView)findViewById(R.id.trafficOrigin); //starting
         trafficDestination = (AutoCompleteTextView)findViewById(R.id.trafficDestination); //destination
-        weatherLocation = (EditText)findViewById(R.id.weatherLocation);
         timePicker = (TimePicker)findViewById(R.id.timePicker);
         mStart = (Button)findViewById(R.id.mapbut1);
         mDestination = (Button)findViewById(R.id.mapbut2);
-        //mTime = (Button)findViewById(R.id.timebut);
-        //mdisplaytime = (TextView)findViewById(R.id.displaytime);
+        findViewById(R.id.new_alarm_linearlayout).requestFocus();
 
         CompoundButton.OnCheckedChangeListener switchListener = new CompoundButton.OnCheckedChangeListener() {
             @Override

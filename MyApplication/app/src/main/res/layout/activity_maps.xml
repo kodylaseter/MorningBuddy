@@ -20,9 +20,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/vertical_page_margin"
-    android:paddingLeft="@dimen/horizontal_page_margin"
-    android:paddingRight="@dimen/horizontal_page_margin"
     android:paddingTop="@dimen/vertical_page_margin">
 
     <AutoCompleteTextView
@@ -30,6 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:paddingLeft="@dimen/horizontal_page_margin"
+        android:paddingRight="@dimen/horizontal_page_margin"
         android:hint="@string/autocomplete_hint"
         android:singleLine="true" />
 
@@ -37,6 +36,8 @@
         android:id="@+id/button_clear"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/horizontal_page_margin"
+        android:paddingRight="@dimen/horizontal_page_margin"
         android:text="@string/clear_text" />
 
     <fragment
