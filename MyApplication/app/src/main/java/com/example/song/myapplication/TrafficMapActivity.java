@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.text.Spanned;
@@ -112,7 +113,7 @@ public class TrafficMapActivity extends FragmentActivity
 
         mMap.setOnMapLongClickListener(this);
 
-        Button pinpointMaps = (Button) findViewById(R.id.donebutton);
+        FloatingActionButton pinpointMaps = (FloatingActionButton) findViewById(R.id.donebutton);
         pinpointMaps.setOnClickListener(this);
 
     }

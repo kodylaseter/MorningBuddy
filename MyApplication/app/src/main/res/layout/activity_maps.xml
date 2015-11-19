@@ -16,6 +16,7 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -47,15 +48,25 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         class="com.google.android.gms.maps.SupportMapFragment">
 
-        <Button
-            android:layout_width="fill_parent"
+        <!--<Button-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="right|bottom"-->
+            <!--android:id="@+id/donebutton"-->
+            <!--android:text="Done"-->
+            <!--android:padding="10dp"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:paddingRight="10dp"/>-->
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="8dp"
             android:id="@+id/donebutton"
-            android:text="Done"
-            android:padding="10dp"
-            android:layout_marginTop="20dp"
-            android:paddingRight="10dp"/>
+            android:src="@drawable/checkmark"
+            app:layout_anchor="@id/alarmListView"
+            app:layout_anchorGravity="bottom|right|end" />
 
     </fragment>
 </LinearLayout>
