@@ -41,12 +41,23 @@ public class WeatherChecker implements WeatherServiceCallback {
     @Override
     public void serviceSuccess(Channel channel) {
         Item item = channel.getItem();
+        ////////
+
+        //write something here to take the item above returned from the weatherservice and parse it into one of the weather states below.
+        //idk if there's an easy way to do this from the yahoo api or if you'll have to write a regex or string search thing.
+
+        ////////
+        WeatherState weather = WeatherState.snow; //you can use this variable
         this.alarmReceiver.finishWeatherCheck(this.alarm);
     }
 
     @Override
     public void serviceFailure(Exception exception) {
         Toast.makeText(this.ctx, exception.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    public enum WeatherState {
+        snow, storm, wind, other;
     }
 
 }
