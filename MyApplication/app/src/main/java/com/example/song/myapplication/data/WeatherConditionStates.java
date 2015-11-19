@@ -7,6 +7,8 @@ import java.util.HashMap;
  */
 public class WeatherConditionStates {
     private HashMap<Integer, String> snowState;
+    private HashMap<Integer, String> rainState;
+
     private HashMap<Integer, String> stormState;
     private HashMap<Integer, String> windState;
 
@@ -22,22 +24,26 @@ public class WeatherConditionStates {
     public WeatherConditionStates() {
         //weather code refefence: https://gist.github.com/bzerangue/805520
         initSnowStates();
+        intRainStates();
         initStormStates();
         initWindStates();
     }
 
     private void initSnowStates() {
 
-        int [] snowStateCodes = new int[] {5, 6, 7, 13, 14, 15, 16, 17, 18, 41, 42, 43, };
+        int [] snowStateCodes = new int[] {5, 6, 7, 13, 14, 15, 16, 17, 18, 41, 42, 43, 46};
         for (int i:snowStateCodes) {
             snowState.put(i, "");
         }
     }
+    private void intRainStates() {
+        int [] rainStateCodes = new int[] {8, 9, 10, 11, 12, 35};
+        for (int i:rainStateCodes) {
+            rainState.put(i, "");
+        }
+    }
     private void initStormStates() {
-
-        //so far the rain state is included under the storm; it could be further separated
-
-        int [] stormStateCodes = new int[] {1, 3, 4, 8, 9, 10, 11, 12, 35, 37, 38, 39, 40, 45, 47};
+        int [] stormStateCodes = new int[] {1, 3, 4, 37, 38, 39, 45, 47};
         for (int i:stormStateCodes) {
             stormState.put(i, "");
         }
@@ -52,6 +58,8 @@ public class WeatherConditionStates {
         String state = "";
         if (snowState.containsKey(code)) {
             state = "snow";
+        } else if (rainState.containsKey(code)){
+            state = "rain";
         } else if (stormState.containsKey(code)) {
             state = "storm";
         } else if (windState.containsKey(code)) {

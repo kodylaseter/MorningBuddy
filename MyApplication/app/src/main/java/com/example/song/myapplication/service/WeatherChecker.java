@@ -59,6 +59,11 @@ public class WeatherChecker implements WeatherServiceCallback {
             case "snow":
                 weather = WeatherState.snow;
                 break;
+        /* it could be used for further development
+        case "rain":
+                weather = WeatherState.rain;
+                break;
+        */
             case "storm":
                 weather = WeatherState.storm;
                 break;
