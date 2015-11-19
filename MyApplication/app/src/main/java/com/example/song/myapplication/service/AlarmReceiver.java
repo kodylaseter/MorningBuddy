@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.song.myapplication.AlarmActivity;
+import com.example.song.myapplication.db.AlarmDBHelper;
+import com.example.song.myapplication.models.Alarm;
+import com.example.song.myapplication.models.AlarmType;
+
+import java.util.Calendar;
 
 
 /**
@@ -14,13 +19,36 @@ import com.example.song.myapplication.AlarmActivity;
  */
 public class AlarmReceiver extends BroadcastReceiver {
 
+    private Context ctx;
+
     @Override
     public void onReceive(Context context, Intent arg1) {
-        int id = Integer.parseInt(arg1.getStringExtra(AlarmManagerService.ALARM_ID));
-        String origin = arg1.getStringExtra(AlarmManagerService.ORIGIN);
-        String dest = arg1.getStringExtra(AlarmManagerService.DESTINATION);
-        Intent i = new Intent(context, AlarmActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(i);
+        this.ctx = context;
+        String alarmType = arg1.getStringExtra(AlarmManagerService.ALARM_TYPE);
+        int id = Integer.parseInt(arg1.getStringExtra(AlarmManagerService.ALARM_ID)) - 1;
+        //still lots to be added here
+        switch (alarmType) {
+            case AlarmType.ACTUALALARM:
+                Intent i = new Intent(context, AlarmActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
+                break;
+            case AlarmType.CHECKTRAFFIC:
+                String origin = arg1.getStringExtra(AlarmManagerService.ORIGIN);
+                String dest = arg1.getStringExtra(AlarmManagerService.DESTINATION);
+                break;
+            case AlarmType.CHECKWEATHER:
+                Alarm alarm = AlarmDBHelper.getInstance(context).getAlarm(id);
+                WeatherChecker wc = new WeatherChecker(this, context);
+                wc.checkWeather(alarm);
+                break;
+        }
+
+
+    }
+
+    public void finishWeatherCheck(Alarm alarm) {
+        int a = alarm.getId();
+        AlarmManagerService.getInstance().setAlarm(alarm, AlarmType.ACTUALALARM, ctx);
     }
 }

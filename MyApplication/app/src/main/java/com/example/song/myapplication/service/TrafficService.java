@@ -69,8 +69,7 @@ public class TrafficService {
          */
         @Override
         protected void onPostExecute(String result) {
-
-            double res = Double.parseDouble(result);
+            float res = Float.parseFloat(result);
             activity.finishAddAlarm(res);
         }
     }

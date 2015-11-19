@@ -65,7 +65,7 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
                 new SingleShotLocationProvider.LocationCallback() {
                     @Override
                     public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
-                        Log.d("Location", "my location is " + location.toString());
+                        //Log.d("Location", "my location is " + location.toString());
                         service.refreshWeather(location.toString());
                     }
                 });
@@ -85,7 +85,7 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 

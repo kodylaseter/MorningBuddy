@@ -9,15 +9,16 @@ import java.sql.Time;
  */
 public class Alarm {
 
-    private long id;
+    private int id;
     private String name;
     private int time; //time in millis since
     private boolean weatherEnabled;
     private boolean trafficEnabled;
     private String origin;
     private String destination;
+    private float timeEstimate;
 
-    public Alarm(long id, String name, int minutesAfterMidnight, boolean weatherEnabled, boolean trafficEnabled, String origin, String destination) {
+    public Alarm(int id, String name, int minutesAfterMidnight, boolean weatherEnabled, boolean trafficEnabled, String origin, String destination) {
         this.id = id;
         this.name = name;
         this.time = minutesAfterMidnight;
@@ -26,7 +27,7 @@ public class Alarm {
     }
 
     //passing traffic and weather as 0 or 1. probably to be used by db
-    public Alarm(long id, String name, int minutesAfterMidnight, int weatherEnabled, int trafficEnabled, String origin, String destination) {
+    public Alarm(int id, String name, int minutesAfterMidnight, int weatherEnabled, int trafficEnabled, String origin, String destination, float timeEstimate) {
         this.id = id;
         this.name = name;
         this.time = minutesAfterMidnight;
@@ -34,6 +35,7 @@ public class Alarm {
         this.trafficEnabled = trafficEnabled == 1;
         this.origin = origin;
         this.destination = destination;
+        this.timeEstimate = timeEstimate;
     }
 
 
@@ -73,7 +75,7 @@ public class Alarm {
         this.time = t;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -115,5 +117,13 @@ public class Alarm {
 
     public void setOrigin(String origin) {
         this.origin = origin;
+    }
+
+    public float getTimeEstimate() {
+        return timeEstimate;
+    }
+
+    public void setTimeEstimate(float timeEstimate) {
+        this.timeEstimate = timeEstimate;
     }
 }

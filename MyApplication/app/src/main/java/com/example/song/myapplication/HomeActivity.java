@@ -7,23 +7,13 @@ import android.location.LocationManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.song.myapplication.adapters.AlarmAdapter;
 import com.example.song.myapplication.db.AlarmDBHelper;
-import com.example.song.myapplication.models.Alarm;
-import com.example.song.myapplication.service.CalendarService;
-import com.example.song.myapplication.service.SingleShotLocationProvider;
-
-import java.lang.reflect.Array;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -74,26 +64,8 @@ public class HomeActivity extends AppCompatActivity {
         if (id == R.id.weather_settings) {
             Intent  i = new Intent(this, WeatherActivity.class);
             startActivityForResult(i, 1);
-            /**************************************************************************/
-           // return result is not used at this moment, can be used for further development
-            /**************************************************************************/
-            //    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 1 && resultCode == RESULT_OK) {
-//            //int s = data.getIntExtra("testing", 2);
-//            Bundle b = data.getExtras();
-//            if (b != null) {
-//                wm = (WeatherMonitor) b.getSerializable("weatherMonitor");
-//                System.out.println(wm.getSnowTime() + ", " + wm.getWindyTime() + ", " + wm.getStormTime());
-//            }
-//            //Log.d("result", ""+s);
-//        }
-//    }
-
-
-
-
+        } else if (id == R.id.view_database) {
+            startActivity(new Intent(this, AndroidDatabaseManager.class));
         }
 
         return super.onOptionsItemSelected(item);

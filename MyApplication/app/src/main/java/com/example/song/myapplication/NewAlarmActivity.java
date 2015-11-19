@@ -21,9 +21,11 @@ import android.widget.Toast;
 
 import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
+import com.example.song.myapplication.models.AlarmType;
 import com.example.song.myapplication.models.PlaceAutocompleteAdapter;
 import com.example.song.myapplication.service.AlarmManagerService;
 import com.example.song.myapplication.service.TrafficService;
+import com.example.song.myapplication.service.Utilities;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -169,7 +171,6 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         if ((start != null && !start.equals(""))
                 &&
                 (end != null && !end.equals(""))) {
-
             TrafficService.getInstance().getTimeEstimate(start, end, this);
         } else {
             finishAddAlarm(0);
@@ -177,7 +178,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
     }
 
     //@TargetApi(Build.VERSION_CODES.M)
-    public void finishAddAlarm(double timeEstimate) {
+    public void finishAddAlarm(float timeEstimate) {
         Alarm alarm = new Alarm();
         alarm.setName(name.getText().toString());
         int alarmTime = (timePicker.getCurrentHour() * 60) + timePicker.getCurrentMinute();
@@ -187,13 +188,35 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         alarm.setWeatherEnabled(weatherSwitch.isChecked());
         alarm.setOrigin(start);
         alarm.setDestination(end);
+        alarm.setTimeEstimate(timeEstimate);
         double test = timeEstimate;
         Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
-        AlarmManagerService.getInstance().setAlarm(realAlarm, this);
-        Intent i = new Intent(this,HomeActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.putExtra("EXIT", true);
-        startActivity(i);
+        if (!realAlarm.isTrafficEnabled()) {
+            if (realAlarm.isWeatherEnabled()) {
+                AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKWEATHER, this);
+            } else {
+                AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.ACTUALALARM, this);
+            }
+            Intent i = new Intent(this,HomeActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.putExtra("EXIT", true);
+            startActivity(i);
+        } else {
+            String origin = realAlarm.getOrigin();
+            String dest = realAlarm.getDestination();
+            if (origin == null || origin.equals("") || dest == null || dest.equals("")) {
+                Toast.makeText(this, "Origin and Destination must be set to use traffic updates!", Toast.LENGTH_SHORT).show();
+            } else if (timeEstimate < 0.5) {
+                Toast.makeText(this, "Time estimate was too small, something is wrong.", Toast.LENGTH_SHORT).show();
+            } else {
+                AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKTRAFFIC, this);
+                Intent i = new Intent(this,HomeActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.putExtra("EXIT", true);
+                startActivity(i);
+            }
+        }
+
     }
 
     private AdapterView.OnItemClickListener mAutocompleteClickListener

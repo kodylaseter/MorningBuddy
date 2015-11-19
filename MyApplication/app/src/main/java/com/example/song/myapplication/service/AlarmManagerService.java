@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 
 
+import com.example.song.myapplication.data.WeatherMonitor;
 import com.example.song.myapplication.models.Alarm;
+import com.example.song.myapplication.models.AlarmType;
 
 import java.util.Calendar;
 
@@ -19,20 +21,31 @@ public class AlarmManagerService {
     public static final String ALARM_ID = "alarmID";
     public static final String ORIGIN = "origin";
     public static final String DESTINATION = "destination";
+    public static final String ALARM_TYPE = "alarmType";
     public static AlarmManagerService getInstance() {
         if (ams == null) ams = new AlarmManagerService();
         return ams;
     }
 
-    public void setAlarm(Alarm alarm, Context ctx) {
+    public void setAlarm(Alarm alarm, String alarmType, Context ctx) {
         Calendar calSet = Utilities.getCalendarFromTime(alarm);
         long t = calSet.getTimeInMillis();
         Intent intent = new Intent(ctx, AlarmReceiver.class);
-        long a = alarm.getId();
-
+        switch (alarmType) {
+            case AlarmType.ACTUALALARM:
+                break;
+            case AlarmType.CHECKTRAFFIC:
+                break;
+            case AlarmType.CHECKWEATHER:
+                int time = WeatherMonitor.getInstance().getMaxTime() + 1;
+                calSet.add(Calendar.MINUTE, 0 - time);
+                break;
+        }
+        int a = alarm.getId();
         intent.putExtra(ALARM_ID, String.valueOf(alarm.getId()));
         intent.putExtra(ORIGIN, alarm.getOrigin());
         intent.putExtra(DESTINATION, alarm.getDestination());
+        intent.putExtra(ALARM_TYPE, alarmType);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), pendingIntent);

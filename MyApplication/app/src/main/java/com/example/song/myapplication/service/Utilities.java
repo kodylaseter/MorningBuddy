@@ -39,4 +39,9 @@ public class Utilities {
     public static long millisecondsToMinutes(int millis) {
         return millis / (60*1000);
     }
+
+
+//    public static boolean checkForValidTime(Alarm alarm, float minutes) {
+//
+//    }
 }

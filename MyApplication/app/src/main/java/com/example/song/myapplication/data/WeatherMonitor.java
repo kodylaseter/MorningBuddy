@@ -18,7 +18,11 @@ public class WeatherMonitor implements Serializable {
         return weatherMonitor;
     }
 
-    public WeatherMonitor() {}
+    public WeatherMonitor() {
+        this.snowTime = 10;
+        this.stormTime = 10;
+        this.windyTime = 4;
+    }
 
     public int getSnowTime() {
         return snowTime;
@@ -42,5 +46,9 @@ public class WeatherMonitor implements Serializable {
 
     public void setStormTime(int stormTime) {
         this.stormTime = stormTime;
+    }
+
+    public int getMaxTime() {
+        return Math.max(snowTime, Math.max(windyTime, stormTime));
     }
 }
