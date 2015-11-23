@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.song.myapplication.AlarmActivity;
@@ -25,10 +26,11 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent arg1) {
         this.ctx = context;
         String alarmType = arg1.getStringExtra(AlarmManagerService.ALARM_TYPE);
-        int id = Integer.parseInt(arg1.getStringExtra(AlarmManagerService.ALARM_ID)) - 1;
+        int id = Integer.parseInt(arg1.getStringExtra(AlarmManagerService.ALARM_ID));
         //still lots to be added here
         switch (alarmType) {
             case AlarmType.ACTUALALARM:
+                Log.d("mbuddy", "final alarm!");
                 Intent i = new Intent(context, AlarmActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
@@ -49,6 +51,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     public void finishWeatherCheck(Alarm alarm) {
         int a = alarm.getId();
-        AlarmManagerService.getInstance().setAlarm(alarm, AlarmType.ACTUALALARM, ctx);
+        if (alarm.getNewTime() != Alarm.DUMMY_TIME) {
+            AlarmManagerService.getInstance().setAlarm(alarm, AlarmType.ACTUALALARM, ctx, alarm.getNewTime());
+        } else {
+            AlarmManagerService.getInstance().setAlarm(alarm, AlarmType.ACTUALALARM, ctx, alarm.getTime());
+        }
     }
 }

@@ -9,6 +9,8 @@ import com.example.song.myapplication.data.Channel;
 import com.example.song.myapplication.data.Condition;
 import com.example.song.myapplication.data.Item;
 import com.example.song.myapplication.data.WeatherConditionStates;
+import com.example.song.myapplication.data.WeatherMonitor;
+import android.util.Log;
 import com.example.song.myapplication.models.Alarm;
 
 /**
@@ -26,7 +28,6 @@ public class WeatherChecker implements WeatherServiceCallback {
         this.alarmReceiver = alarmReceiver;
         this.weatherService = new WeatherService(this);
         this.ctx = ctx;
-        this.wcs = WeatherConditionStates.getInstance();
     }
 
     public void checkWeather(Alarm alarm) {
@@ -45,33 +46,31 @@ public class WeatherChecker implements WeatherServiceCallback {
     @Override
     public void serviceSuccess(Channel channel) {
         Item item = channel.getItem();
-        ////////
 
-        //write something here to take the item above returned from the weatherservice and parse it into one of the weather states below.
-        //idk if there's an easy way to do this from the yahoo api or if you'll have to write a regex or string search thing.
-
-        ////////
-        WeatherState weather;
-        //String weatherCondition = item.getCondition().getDescription().toLowerCase();
         int weatherConditionCode = item.getCondition().getCode();
 
-        switch(wcs.weatherConditionState(weatherConditionCode)) {
-            case "snow":
-                weather = WeatherState.snow;
+        WeatherState weatherState = WeatherConditionStates.getStateFromCode(weatherConditionCode);
+        //set to snow for testing
+        //weatherState = WeatherState.snow;
+        switch (weatherState){
+            case snow:
+                Log.d("mbuddy", "alarm moved up due to snow");
+                alarm.setNewTime(alarm.getTime() - WeatherMonitor.getInstance().getSnowTime());
                 break;
-        /* it could be used for further development
-        case "rain":
-                weather = WeatherState.rain;
+            case storm:
+                Log.d("mbuddy", "alarm moved up due to storm");
+                alarm.setNewTime(alarm.getTime() - WeatherMonitor.getInstance().getStormTime());
                 break;
-        */
-            case "storm":
-                weather = WeatherState.storm;
+            case wind:
+                Log.d("mbuddy", "alarm moved up due to wind");
+                alarm.setNewTime(alarm.getTime() - WeatherMonitor.getInstance().getWindyTime());
                 break;
-            case "wind":
-                weather = WeatherState.wind;
+            case rain:
+                Log.d("mbuddy", "alarm moved up due to rain");
+                alarm.setNewTime(alarm.getTime() - WeatherMonitor.getInstance().getRainTime());
                 break;
-            default:
-                weather = WeatherState.other;
+            case other:
+                Log.d("mbuddy", "alarm not changed by weather checker");
                 break;
         }
 
@@ -84,6 +83,6 @@ public class WeatherChecker implements WeatherServiceCallback {
     }
 
     public enum WeatherState {
-        snow, storm, wind, other;
+        snow, storm, wind, rain, other;
     }
 }

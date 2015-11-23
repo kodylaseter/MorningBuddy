@@ -17,8 +17,10 @@ public class Alarm {
     private String origin;
     private String destination;
     private float timeEstimate;
+    private int newTime;
+    public static final int DUMMY_TIME = 9999999;
 
-    public Alarm(int id, String name, int minutesAfterMidnight, boolean weatherEnabled, boolean trafficEnabled, String origin, String destination) {
+    public Alarm(int id, String name, int minutesAfterMidnight, boolean weatherEnabled, boolean trafficEnabled, String origin, String destination, int newTime) {
         this.id = id;
         this.name = name;
         this.time = minutesAfterMidnight;
@@ -27,7 +29,7 @@ public class Alarm {
     }
 
     //passing traffic and weather as 0 or 1. probably to be used by db
-    public Alarm(int id, String name, int minutesAfterMidnight, int weatherEnabled, int trafficEnabled, String origin, String destination, float timeEstimate) {
+    public Alarm(int id, String name, int minutesAfterMidnight, int weatherEnabled, int trafficEnabled, String origin, String destination, float timeEstimate, int newTime) {
         this.id = id;
         this.name = name;
         this.time = minutesAfterMidnight;
@@ -36,6 +38,7 @@ public class Alarm {
         this.origin = origin;
         this.destination = destination;
         this.timeEstimate = timeEstimate;
+        this.newTime = DUMMY_TIME;
     }
 
 
@@ -77,6 +80,10 @@ public class Alarm {
 
     public int getId() {
         return id;
+    }
+
+    public int getZeroId() {
+        return id - 1;
     }
 
     public void setName(String n) {
@@ -126,4 +133,13 @@ public class Alarm {
     public void setTimeEstimate(float timeEstimate) {
         this.timeEstimate = timeEstimate;
     }
+
+    public int getNewTime() {
+        return newTime;
+    }
+
+    public void setNewTime(int newTime) {
+        this.newTime = newTime;
+    }
+
 }

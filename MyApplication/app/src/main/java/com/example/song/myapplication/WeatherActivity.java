@@ -32,6 +32,7 @@ public class WeatherActivity extends AppCompatActivity {
     private EditText snowEditText;
     private EditText windyEditText;
     private EditText stormEditText;
+    private EditText rainEditText;
 
     private Button saveButton;
 
@@ -45,6 +46,8 @@ public class WeatherActivity extends AppCompatActivity {
         windyEditText.setText(String.valueOf(WeatherMonitor.getInstance().getWindyTime()));
         stormEditText = (EditText)findViewById(R.id.stormEditText);
         stormEditText.setText(String.valueOf(WeatherMonitor.getInstance().getStormTime()));
+        rainEditText = (EditText)findViewById(R.id.rainEditText);
+        rainEditText.setText(String.valueOf(WeatherMonitor.getInstance().getRainTime()));
         saveButton = (Button)findViewById(R.id.saveButton);
 
     }

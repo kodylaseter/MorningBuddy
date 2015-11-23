@@ -26,12 +26,13 @@ public class DBService extends SQLiteOpenHelper {
     public static final String COLUMN_ORIGIN = "origin";
     public static final String COLUMN_DESTINATION = "destination";
     public static final String COLUMN_TIMEESTIMATE = "time_estimate";
+    public static final String COLUMN_NEW_TIME = "new_time";
 
 
     private static final String DATABASE_NAME = "alarm.db";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
-    private static final String DATABASE_CREATE = "create table " + TABLE_NAME + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_NAME + " text not null, " + COLUMN_TIME + " integer not null, " + COLUMN_WEATHERENABLED + " boolean not null, " + COLUMN_TRAFFICENABLED + " boolean not null, " + COLUMN_ORIGIN + " text, " + COLUMN_DESTINATION + " text, " + COLUMN_TIMEESTIMATE + " real" + ");";
+    private static final String DATABASE_CREATE = "create table " + TABLE_NAME + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_NAME + " text not null, " + COLUMN_TIME + " integer not null, " + COLUMN_WEATHERENABLED + " boolean not null, " + COLUMN_TRAFFICENABLED + " boolean not null, " + COLUMN_ORIGIN + " text, " + COLUMN_DESTINATION + " text, " + COLUMN_TIMEESTIMATE + " real, " + COLUMN_NEW_TIME + " integer" + ");";
 
     private Context dbCtx;
 

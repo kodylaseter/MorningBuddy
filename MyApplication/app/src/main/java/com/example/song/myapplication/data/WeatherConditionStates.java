@@ -1,5 +1,7 @@
 package com.example.song.myapplication.data;
 
+import com.example.song.myapplication.service.WeatherChecker;
+
 import java.util.HashMap;
 
 /**
@@ -12,61 +14,31 @@ public class WeatherConditionStates {
     private HashMap<Integer, String> stormState;
     private HashMap<Integer, String> windState;
 
-    private static WeatherConditionStates weatherConditionStates;
+    private static Integer [] snowStateCodes = new Integer[] {5, 6, 7, 13, 14, 15, 16, 17, 18, 41, 42, 43, 46};
+    private static Integer [] rainStateCodes = new Integer[] {8, 9, 10, 11, 12, 35};
+    private static Integer [] stormStateCodes = new Integer[] {1, 3, 4, 37, 38, 39, 45, 47};
+    private static Integer [] windStateCodes = new Integer[] {0, 2, 23, 24, };
 
-    public static WeatherConditionStates getInstance() {
-        if (weatherConditionStates == null) {
-            weatherConditionStates = new WeatherConditionStates();
-        }
-        return weatherConditionStates;
-    }
+    public static WeatherChecker.WeatherState getStateFromCode(int code) {
 
-    public WeatherConditionStates() {
-        //weather code refefence: https://gist.github.com/bzerangue/805520
-        initSnowStates();
-        intRainStates();
-        initStormStates();
-        initWindStates();
-    }
-
-    private void initSnowStates() {
-
-        int [] snowStateCodes = new int[] {5, 6, 7, 13, 14, 15, 16, 17, 18, 41, 42, 43, 46};
-        for (int i:snowStateCodes) {
-            snowState.put(i, "");
-        }
-    }
-    private void intRainStates() {
-        int [] rainStateCodes = new int[] {8, 9, 10, 11, 12, 35};
-        for (int i:rainStateCodes) {
-            rainState.put(i, "");
-        }
-    }
-    private void initStormStates() {
-        int [] stormStateCodes = new int[] {1, 3, 4, 37, 38, 39, 45, 47};
-        for (int i:stormStateCodes) {
-            stormState.put(i, "");
-        }
-    }
-    private void initWindStates() {
-        int [] windStateCodes = new int[] {0, 2, 23, 24, };
-        for (int i:windStateCodes) {
-            windState.put(i, "");
-        }
-    }
-    public String weatherConditionState(int code) {
-        String state = "";
-        if (snowState.containsKey(code)) {
-            state = "snow";
-        } else if (rainState.containsKey(code)){
-            state = "rain";
-        } else if (stormState.containsKey(code)) {
-            state = "storm";
-        } else if (windState.containsKey(code)) {
-            state = "wind";
+        if (contains(snowStateCodes, code)) {
+            return WeatherChecker.WeatherState.snow;
+        } else if (contains(rainStateCodes, code)){
+            return WeatherChecker.WeatherState.rain;
+        } else if (contains(stormStateCodes, code)) {
+            return WeatherChecker.WeatherState.storm;
+        } else if (contains(windStateCodes, code)) {
+            return WeatherChecker.WeatherState.wind;
         } else {
-            state = "other";
+            return WeatherChecker.WeatherState.other;
         }
-        return state;
+    }
+
+    public static <T> boolean contains(final T[] array, final T v) {
+        for (final T e : array)
+            if (e == v || v != null && v.equals(e))
+                return true;
+
+        return false;
     }
 }

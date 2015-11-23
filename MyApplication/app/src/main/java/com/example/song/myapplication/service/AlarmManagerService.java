@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 
 import com.example.song.myapplication.data.WeatherMonitor;
@@ -27,8 +28,8 @@ public class AlarmManagerService {
         return ams;
     }
 
-    public void setAlarm(Alarm alarm, String alarmType, Context ctx) {
-        Calendar calSet = Utilities.getCalendarFromTime(alarm);
+    public void setAlarm(Alarm alarm, String alarmType, Context ctx, int time) {
+        Calendar calSet = Utilities.getCalendarFromTime(time);
         long t = calSet.getTimeInMillis();
         Intent intent = new Intent(ctx, AlarmReceiver.class);
         switch (alarmType) {
@@ -37,17 +38,18 @@ public class AlarmManagerService {
             case AlarmType.CHECKTRAFFIC:
                 break;
             case AlarmType.CHECKWEATHER:
-                int time = WeatherMonitor.getInstance().getMaxTime() + 1;
-                calSet.add(Calendar.MINUTE, 0 - time);
+                int tempTime = WeatherMonitor.getInstance().getMaxTime() + 1;
+                calSet.add(Calendar.MINUTE, 0 - tempTime);
                 break;
         }
         int a = alarm.getId();
-        intent.putExtra(ALARM_ID, String.valueOf(alarm.getId()));
+        intent.putExtra(ALARM_ID, String.valueOf(alarm.getZeroId()));
         intent.putExtra(ORIGIN, alarm.getOrigin());
         intent.putExtra(DESTINATION, alarm.getDestination());
         intent.putExtra(ALARM_TYPE, alarmType);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+        Log.d("mbuddy", "alarm set at " + calSet.getTime());
         alarmManager.set(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), pendingIntent);
     }
 }

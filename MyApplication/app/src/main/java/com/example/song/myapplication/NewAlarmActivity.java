@@ -183,7 +183,9 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
     public void initialAddAlarm(View view) {
         start = trafficOrigin.getText().toString();
         end = trafficDestination.getText().toString();
-        if ((start != null && !start.equals(""))
+        //if switch is enabled and both autocomplete boxes are non-empty
+        if (trafficSwitch.isChecked() &&
+                (start != null && !start.equals(""))
                 &&
                 (end != null && !end.equals(""))) {
             TrafficService.getInstance().getTimeEstimate(start, end, this);
@@ -204,13 +206,14 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         alarm.setOrigin(start);
         alarm.setDestination(end);
         alarm.setTimeEstimate(timeEstimate);
+        alarm.setNewTime(Alarm.DUMMY_TIME);
         double test = timeEstimate;
         Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
         if (!realAlarm.isTrafficEnabled()) {
             if (realAlarm.isWeatherEnabled()) {
-                AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKWEATHER, this);
+                AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKWEATHER, this, realAlarm.getTime());
             } else {
-                AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.ACTUALALARM, this);
+                AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.ACTUALALARM, this, realAlarm.getTime());
             }
             Intent i = new Intent(this,HomeActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -224,7 +227,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
             } else if (timeEstimate < 0.5) {
                 Toast.makeText(this, "Time estimate was too small, something is wrong.", Toast.LENGTH_SHORT).show();
             } else {
-                AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKTRAFFIC, this);
+                AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKTRAFFIC, this, realAlarm.getTime());
                 Intent i = new Intent(this,HomeActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 i.putExtra("EXIT", true);

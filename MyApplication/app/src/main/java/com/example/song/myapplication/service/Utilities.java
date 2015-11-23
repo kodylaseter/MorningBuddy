@@ -13,8 +13,9 @@ public class Utilities {
         return new Time(minutes / 60, minutes % 60, 0);
     }
 
-    public static Calendar getCalendarFromTime(Alarm alarm) {
-        Time time = alarm.getTimeAsTime();
+    public static Calendar getCalendarFromTime(int minutes) {
+        //Time time = alarm.getTimeAsTime();
+        Time time = minutesToTime(minutes);
         Calendar cal = Calendar.getInstance();
         Calendar calNow = Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
