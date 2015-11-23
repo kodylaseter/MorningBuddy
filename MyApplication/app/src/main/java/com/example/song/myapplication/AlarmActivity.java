@@ -80,6 +80,8 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
                 }
             }
         }, 5000);
+
+        Log.d("mbuddy", "alarm activity launched!");
     }
 
     @Override

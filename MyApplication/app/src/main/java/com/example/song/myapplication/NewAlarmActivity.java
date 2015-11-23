@@ -20,11 +20,13 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.song.myapplication.adapters.PlaceAutocompleteAdapter;
+import com.example.song.myapplication.data.WeatherMonitor;
 import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
 import com.example.song.myapplication.models.AlarmType;
 import com.example.song.myapplication.service.AlarmManagerService;
 import com.example.song.myapplication.service.TrafficService;
+import com.example.song.myapplication.service.Utilities;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -209,16 +211,26 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         alarm.setNewTime(Alarm.DUMMY_TIME);
         double test = timeEstimate;
         Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
+        int bufferTime = WeatherMonitor.getInstance().getMaxTime() + 1;
         if (!realAlarm.isTrafficEnabled()) {
             if (realAlarm.isWeatherEnabled()) {
-                AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKWEATHER, this, realAlarm.getTime());
+                if (Utilities.isAlarmFarEnoughAway(realAlarm, bufferTime)) {
+                    AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKWEATHER, this, realAlarm.getTime());
+                    Intent i = new Intent(this,HomeActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.putExtra("EXIT", true);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(this, "Alarm time is not far enough away to perform weather check!", Toast.LENGTH_SHORT).show();
+                }
+
             } else {
                 AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.ACTUALALARM, this, realAlarm.getTime());
+                Intent i = new Intent(this,HomeActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.putExtra("EXIT", true);
+                startActivity(i);
             }
-            Intent i = new Intent(this,HomeActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.putExtra("EXIT", true);
-            startActivity(i);
         } else {
             String origin = realAlarm.getOrigin();
             String dest = realAlarm.getDestination();
