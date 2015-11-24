@@ -1,212 +1,94 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".WeatherActivity">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/weatherIconImageView"
-        android:src="@drawable/na"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/temperature"
-        android:id="@+id/temperatureTextView"
-        android:textStyle="bold"
-        android:typeface="serif"
-        android:layout_above="@+id/conditionTextView"
-        android:layout_toRightOf="@+id/weatherIconImageView"
-        android:layout_toEndOf="@+id/weatherIconImageView" />
+    android:paddingTop="34dp"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".WeatherActivity"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/condition"
-        android:id="@+id/conditionTextView"
-        android:textStyle="bold"
-        android:layout_alignBottom="@+id/weatherIconImageView"
-        android:layout_alignLeft="@+id/temperatureTextView"
-        android:layout_alignStart="@+id/temperatureTextView"
-        android:layout_marginBottom="38dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="Specify amount of time to increase alarm by for each weather condition"
+        android:gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/location"
-        android:id="@+id/locationTextView"
-        android:textStyle="bold"
-        android:layout_below="@+id/weatherIconImageView"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginBottom="30dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Adjust time on weather condition:"
-        android:id="@+id/textView"
-        android:textStyle="bold"
-        android:layout_marginTop="35dp"
-        android:textSize="20dp"
-        android:layout_below="@+id/locationTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Snow: "/>
+        <EditText
+            android:id="@+id/snowEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="number"/>
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Snow:          "
-        android:id="@+id/textView2"
-        android:layout_marginTop="40dp"
-        android:textStyle="bold"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Storm: "/>
+        <EditText
+            android:id="@+id/stormEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="number"/>
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Windy:"
-        android:id="@+id/textView3"
-        android:textStyle="bold"
-        android:layout_below="@+id/snowAdjustTime"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Wind: "/>
+        <EditText
+            android:id="@+id/windEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="number"/>
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Storm:"
-        android:id="@+id/textView4"
-        android:textStyle="bold"
-        android:layout_below="@+id/windyAdjustTime"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/snowAdjustTime"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignRight="@+id/weatherIconImageView"
-        android:layout_alignEnd="@+id/weatherIconImageView"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/windyAdjustTime"
-        android:layout_alignTop="@+id/textView3"
-        android:layout_alignRight="@+id/snowAdjustTime"
-        android:layout_alignEnd="@+id/snowAdjustTime"
-        android:layout_alignLeft="@+id/snowAdjustTime"
-        android:layout_alignStart="@+id/snowAdjustTime" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/stormAdjustTime"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_alignRight="@+id/weatherIconImageView"
-        android:layout_alignEnd="@+id/weatherIconImageView"
-        android:layout_alignLeft="@+id/windyAdjustTime"
-        android:layout_alignStart="@+id/windyAdjustTime" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="   Min"
-        android:id="@+id/textView5"
-        android:textStyle="bold"
-        android:layout_alignTop="@+id/snowAdjustTime"
-        android:layout_toRightOf="@+id/snowAdjustTime"
-        android:layout_toEndOf="@+id/snowAdjustTime" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="   Min"
-        android:id="@+id/textView6"
-        android:textStyle="bold"
-        android:layout_alignTop="@+id/windyAdjustTime"
-        android:layout_toRightOf="@+id/weatherIconImageView"
-        android:layout_toEndOf="@+id/weatherIconImageView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="   Min"
-        android:id="@+id/textView7"
-        android:textStyle="bold"
-        android:layout_alignTop="@+id/stormAdjustTime"
-        android:layout_toRightOf="@+id/weatherIconImageView"
-        android:layout_toEndOf="@+id/weatherIconImageView" />
-
-    <Switch
-        tools:targetApi="ice_cream_sandwich"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="On"
-        android:id="@+id/snowSwitch"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignTop="@+id/textView5"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textStyle="bold" />
-
-    <Switch
-        tools:targetApi="ice_cream_sandwich"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="On"
-        android:id="@+id/windySwitch"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignTop="@+id/textView6"
-        android:layout_alignLeft="@+id/snowSwitch"
-        android:layout_alignStart="@+id/snowSwitch"
-        android:textStyle="bold" />
-
-    <Switch
-        tools:targetApi="ice_cream_sandwich"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="On"
-        android:id="@+id/stormSwitch"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignTop="@+id/textView7"
-        android:layout_alignLeft="@+id/windySwitch"
-        android:layout_alignStart="@+id/windySwitch"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Rain: "/>
+        <EditText
+            android:id="@+id/rainEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="number"
+            android:layout_marginBottom="30dp"/>
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/saveButton"
-        android:onClick="weatherAdjustSaveButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/textView7"
-        android:layout_alignEnd="@+id/textView7" />
+        android:onClick="weatherAdjustSaveButton"/>
 
-</RelativeLayout>
+</LinearLayout>

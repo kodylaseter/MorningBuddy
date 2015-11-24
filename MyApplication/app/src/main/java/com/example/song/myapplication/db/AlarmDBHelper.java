@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class AlarmDBHelper {
     private SQLiteDatabase db;
     private DBService dbservice;
-    private String[] columns = {DBService.COLUMN_ID, DBService.COLUMN_NAME, DBService.COLUMN_TIME, DBService.COLUMN_WEATHERENABLED, DBService.COLUMN_TRAFFICENABLED};
+    private String[] columns = {DBService.COLUMN_ID, DBService.COLUMN_NAME, DBService.COLUMN_TIME, DBService.COLUMN_WEATHERENABLED, DBService.COLUMN_TRAFFICENABLED, DBService.COLUMN_ORIGIN, DBService.COLUMN_DESTINATION, DBService.COLUMN_TIMEESTIMATE, DBService.COLUMN_NEW_TIME};
     private ArrayList<Alarm> alarms;
     private Context ctx;
 
@@ -61,11 +61,20 @@ public class AlarmDBHelper {
         values.put(DBService.COLUMN_TIME, alarm.getTime());
         values.put(DBService.COLUMN_WEATHERENABLED, alarm.isWeatherEnabled());
         values.put(DBService.COLUMN_TRAFFICENABLED, alarm.isTrafficEnabled());
+        if (alarm.isTrafficEnabled()) {
+            if (alarm.getOrigin() != null && alarm.getOrigin() != "") {
+                values.put(DBService.COLUMN_ORIGIN, alarm.getOrigin());
+            }
+            if (alarm.getDestination() != null && alarm.getDestination() != "") {
+                values.put(DBService.COLUMN_DESTINATION, alarm.getDestination());
+            }
+            values.put(DBService.COLUMN_TIMEESTIMATE, alarm.getTimeEstimate());
+        }
+        values.put(DBService.COLUMN_NEW_TIME, alarm.getNewTime());
         long insertID = getDb().insert(DBService.TABLE_NAME, null, values);
         Cursor cursor = getDb().query(DBService.TABLE_NAME, columns, DBService.COLUMN_ID + " =" + insertID, null, null, null, null);
         cursor.moveToFirst();
         Alarm a = toAlarmModel(cursor);
-
         updateAlarms();
         return a;
     }
@@ -93,7 +102,7 @@ public class AlarmDBHelper {
     }
 
     public Alarm toAlarmModel(Cursor cursor) {
-        return new Alarm(cursor.getLong(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4));
+        return new Alarm(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4), cursor.getString(5), cursor.getString(6), cursor.getFloat(7), cursor.getInt(8));
 
     }
 }

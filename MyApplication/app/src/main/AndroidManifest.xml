@@ -14,7 +14,7 @@
         android:required="true"/>
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="14"
         android:targetSdkVersion="22" />
 
     <application
@@ -40,6 +40,10 @@
             android:label="Add an Alarm" >
         </activity>
         <activity
+            android:name=".TrafficMapActivity"
+            android:label="MapView" >
+        </activity>
+        <activity
             android:name=".HomeActivity"
             android:label="Morning Buddy" >
             <intent-filter>
@@ -52,6 +56,9 @@
             android:name=".AlarmActivity"
             android:label="Alarm Activity" >
         </activity>
+
+        <activity android:name=".AndroidDatabaseManager"
+            android:theme="@style/Theme.AppCompat.Light"/>
 
         <receiver
             android:name=".service.AlarmReceiver"/>

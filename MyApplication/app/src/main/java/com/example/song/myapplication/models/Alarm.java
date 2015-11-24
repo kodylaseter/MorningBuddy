@@ -9,13 +9,18 @@ import java.sql.Time;
  */
 public class Alarm {
 
-    private long id;
+    private int id;
     private String name;
     private int time; //time in millis since
     private boolean weatherEnabled;
     private boolean trafficEnabled;
+    private String origin;
+    private String destination;
+    private float timeEstimate;
+    private int newTime;
+    public static final int DUMMY_TIME = 9999999;
 
-    public Alarm(long id, String name, int minutesAfterMidnight, boolean weatherEnabled, boolean trafficEnabled) {
+    public Alarm(int id, String name, int minutesAfterMidnight, boolean weatherEnabled, boolean trafficEnabled, String origin, String destination, int newTime) {
         this.id = id;
         this.name = name;
         this.time = minutesAfterMidnight;
@@ -24,14 +29,18 @@ public class Alarm {
     }
 
     //passing traffic and weather as 0 or 1. probably to be used by db
-    public Alarm(long id, String name, int minutesAfterMidnight, int weatherEnabled, int trafficEnabled) {
+    public Alarm(int id, String name, int minutesAfterMidnight, int weatherEnabled, int trafficEnabled, String origin, String destination, float timeEstimate, int newTime) {
         this.id = id;
         this.name = name;
         this.time = minutesAfterMidnight;
         this.weatherEnabled = weatherEnabled == 1;
         this.trafficEnabled = trafficEnabled == 1;
-
+        this.origin = origin;
+        this.destination = destination;
+        this.timeEstimate = timeEstimate;
+        this.newTime = DUMMY_TIME;
     }
+
 
     public Alarm() {
     }
@@ -69,8 +78,12 @@ public class Alarm {
         this.time = t;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
+    }
+
+    public int getZeroId() {
+        return id - 1;
     }
 
     public void setName(String n) {
@@ -96,4 +109,37 @@ public class Alarm {
     public void setTrafficEnabled(boolean trafficEnabled) {
         this.trafficEnabled = trafficEnabled;
     }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public float getTimeEstimate() {
+        return timeEstimate;
+    }
+
+    public void setTimeEstimate(float timeEstimate) {
+        this.timeEstimate = timeEstimate;
+    }
+
+    public int getNewTime() {
+        return newTime;
+    }
+
+    public void setNewTime(int newTime) {
+        this.newTime = newTime;
+    }
+
 }

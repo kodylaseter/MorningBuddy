@@ -3,5 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.song.myapplication.HomeActivity">
     <item android:id="@+id/weather_settings" android:title="Weather Settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+        android:orderInCategory="1" app:showAsAction="never" />
+    <item android:id="@+id/view_database" android:title="View Database"
+        android:orderInCategory="2" app:showAsAction="never" />
 </menu>
