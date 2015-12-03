@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.song.myapplication.adapters.CalendarAdapter;
 import com.example.song.myapplication.data.Channel;
 import com.example.song.myapplication.data.Item;
+import com.example.song.myapplication.service.AlarmSoundAndVibrateService;
 import com.example.song.myapplication.service.CalendarService;
 import com.example.song.myapplication.service.WeatherService;
 import com.example.song.myapplication.service.WeatherServiceCallback;
@@ -29,6 +31,7 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
     private TextView conditionTextView;
     private TextView locationTextView;
     private ListView calendarEventListView;
+    private AlarmSoundAndVibrateService alarm;
 
     private WeatherService service;
     private ProgressDialog dialog;
@@ -48,11 +51,19 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
         temperatureTextView = (TextView)findViewById(R.id.temperatureTextView);
         conditionTextView = (TextView)findViewById(R.id.conditionTextView);
         locationTextView = (TextView)findViewById(R.id.locationTextView);
+        alarm = new AlarmSoundAndVibrateService(this);
 
         calendarEventListView = (ListView)findViewById(R.id.calendarEventListView);
         CalendarService calendarService = new CalendarService(this);
         CalendarAdapter adapter = new CalendarAdapter(this, calendarService.getEvents());
         calendarEventListView.setAdapter(adapter);
+
+
+
+        //so what should happen here is you should create the alarm service, which you seem to be doing correctly above.
+        //then start the alarm, also seems fine.
+        //somewhere in here you need to register the button.
+        //when the button is clicked, you should call like alarm.stopAlarm();
 
         service = new WeatherService(this);
 
@@ -69,7 +80,7 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
                         service.refreshWeather(location.toString());
                     }
                 });
-        // dismiss the progress bar if no location information is found after 5 seconds
+// dismiss the progress bar if no location information is found after 5 seconds
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -80,15 +91,20 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
                 }
             }
         }, 5000);
-
+alarm.startAlarm();
         Log.d("mbuddy", "alarm activity launched!");
+		
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    public void endAlarm(View view) {
+        alarm.stopAlarm();
     }
 
     @Override
