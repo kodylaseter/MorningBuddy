@@ -51,23 +51,24 @@ public class WeatherChecker implements WeatherServiceCallback {
 
         WeatherState weatherState = WeatherConditionStates.getStateFromCode(weatherConditionCode);
         //set to snow for testing
-        //weatherState = WeatherState.snow;
+        weatherState = WeatherState.snow;
         switch (weatherState){
             case snow:
                 Log.d("mbuddy", "alarm moved up due to snow");
-                alarm.setNewTime(alarm.getTime() - WeatherMonitor.getInstance().getSnowTime());
+                alarm.setNewTime((int)(Utilities.timeToMinutes(alarm.getEitherTimeAsTime()) - WeatherMonitor.getInstance().getSnowTime()));
+                Toast.makeText(this.ctx, "Alarm moved up " + WeatherMonitor.getInstance().getSnowTime() + " minutes due to traffic conditions!", Toast.LENGTH_SHORT).show();
                 break;
             case storm:
                 Log.d("mbuddy", "alarm moved up due to storm");
-                alarm.setNewTime(alarm.getTime() - WeatherMonitor.getInstance().getStormTime());
+                alarm.setNewTime((int)(Utilities.timeToMinutes(alarm.getEitherTimeAsTime()) - WeatherMonitor.getInstance().getSnowTime()));
                 break;
             case wind:
                 Log.d("mbuddy", "alarm moved up due to wind");
-                alarm.setNewTime(alarm.getTime() - WeatherMonitor.getInstance().getWindyTime());
+                alarm.setNewTime((int)(Utilities.timeToMinutes(alarm.getEitherTimeAsTime()) - WeatherMonitor.getInstance().getSnowTime()));
                 break;
             case rain:
                 Log.d("mbuddy", "alarm moved up due to rain");
-                alarm.setNewTime(alarm.getTime() - WeatherMonitor.getInstance().getRainTime());
+                alarm.setNewTime((int)(Utilities.timeToMinutes(alarm.getEitherTimeAsTime()) - WeatherMonitor.getInstance().getSnowTime()));
                 break;
             case other:
                 Log.d("mbuddy", "alarm not changed by weather checker");

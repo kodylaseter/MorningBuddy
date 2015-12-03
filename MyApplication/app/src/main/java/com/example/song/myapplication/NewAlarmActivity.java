@@ -22,10 +22,11 @@ import android.widget.Toast;
 import com.example.song.myapplication.adapters.PlaceAutocompleteAdapter;
 import com.example.song.myapplication.data.WeatherMonitor;
 import com.example.song.myapplication.db.AlarmDBHelper;
+import com.example.song.myapplication.logger.Log;
 import com.example.song.myapplication.models.Alarm;
 import com.example.song.myapplication.models.AlarmType;
 import com.example.song.myapplication.service.AlarmManagerService;
-import com.example.song.myapplication.service.TrafficService;
+import com.example.song.myapplication.service.TrafficChecker;
 import com.example.song.myapplication.service.Utilities;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -53,8 +54,6 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
     PlaceAutocompleteAdapter mAdapter;
     Button mStart;
     Button mDestination;
-    //Button mTime;
-    //TextView mdisplaytime;
     Button mBut1;
     Button mBut2;
     String start, end;
@@ -62,7 +61,6 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
     private static final LatLngBounds BOUNDS_GREATER_SYDNEY = new LatLngBounds(
             new LatLng(-34.041458, 150.790100), new LatLng(-33.682247, 151.383362));
 
-    //WeatherMonitor wm = new WeatherMonitor(0, 0, 0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +92,6 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
                         mStart.setVisibility(View.GONE);
                         mDestination.setVisibility(View.GONE);
                     }
-                } else if (buttonView.getId() == R.id.weatherSwitch) {
-                    if (isChecked) {
-                        //weatherMonitoringOn();
-                    }
                 }
             }
         };
@@ -127,18 +121,6 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
             }
         });
 
-//        mTime.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View view) {
-//                String start, end;
-//                if (trafficOrigin != null || !trafficOrigin.getText().toString().equals("")) {
-//                    start = trafficOrigin.getText().toString();
-//                    if (trafficDestination != null || !trafficDestination.getText().toString().equals("")) {
-//                        end = trafficDestination.getText().toString();
-//                        TrafficService.getInstance().getTimeEstimate(start, end);
-//                    }
-//                }
-//            }
-//        });
 
         trafficSwitch.setOnCheckedChangeListener(switchListener);
         weatherSwitch.setOnCheckedChangeListener(switchListener);
@@ -190,7 +172,14 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
                 (start != null && !start.equals(""))
                 &&
                 (end != null && !end.equals(""))) {
-            TrafficService.getInstance().getTimeEstimate(start, end, this);
+            TrafficChecker trafficChecker = new TrafficChecker(this, this);
+            Alarm alarm = new Alarm();
+            alarm.setOrigin(start);
+            alarm.setDestination(end);
+            int alarmTime = (timePicker.getCurrentHour() * 60) + timePicker.getCurrentMinute();
+            alarm.setTime(alarmTime);
+            Log.d("mbuddy", "about to check time");
+            trafficChecker.checkTime(alarm);
         } else {
             finishAddAlarm(0);
         }
@@ -211,17 +200,18 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         alarm.setNewTime(Alarm.DUMMY_TIME);
         double test = timeEstimate;
         Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
-        int bufferTime = WeatherMonitor.getInstance().getMaxTime() + 1;
+        int bufferTime;
         if (!realAlarm.isTrafficEnabled()) {
             if (realAlarm.isWeatherEnabled()) {
-                if (Utilities.isAlarmFarEnoughAway(realAlarm, bufferTime)) {
+                bufferTime = WeatherMonitor.getInstance().getMaxTime() + 1;
+                if (Utilities.isTimeFarEnoughAway(realAlarm.getTimeAsTime(), bufferTime)) {
                     AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKWEATHER, this, realAlarm.getTime());
                     Intent i = new Intent(this,HomeActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     i.putExtra("EXIT", true);
                     startActivity(i);
                 } else {
-                    Toast.makeText(this, "Alarm time is not far enough away to perform weather check!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Weather check requires at least " + bufferTime + " minutes.", Toast.LENGTH_SHORT).show();
                 }
 
             } else {
@@ -232,18 +222,23 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
                 startActivity(i);
             }
         } else {
+            bufferTime = Alarm.TRAFFIC_BUFFER_TIME;
             String origin = realAlarm.getOrigin();
             String dest = realAlarm.getDestination();
             if (origin == null || origin.equals("") || dest == null || dest.equals("")) {
-                Toast.makeText(this, "Origin and Destination must be set to use traffic updates!", Toast.LENGTH_SHORT).show();
-            } else if (timeEstimate < 0.5) {
+                Toast.makeText(this, "Origin and Destination must be set to use traffic updates! ", Toast.LENGTH_SHORT).show();
+            } else if (timeEstimate < 0.1) {
                 Toast.makeText(this, "Time estimate was too small, something is wrong.", Toast.LENGTH_SHORT).show();
             } else {
-                AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKTRAFFIC, this, realAlarm.getTime());
-                Intent i = new Intent(this,HomeActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra("EXIT", true);
-                startActivity(i);
+                if (Utilities.isTimeFarEnoughAway(realAlarm.getTimeAsTime(), bufferTime)){
+                    AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKTRAFFIC, this, realAlarm.getTime() - Alarm.TRAFFIC_BUFFER_TIME);
+                    Intent i = new Intent(this,HomeActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.putExtra("EXIT", true);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(this, "Traffic check requires at least " + bufferTime + " minutes.", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 

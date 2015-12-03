@@ -2,8 +2,8 @@ package com.example.song.myapplication.service;
 
 import android.os.AsyncTask;
 
-import com.example.song.myapplication.NewAlarmActivity;
 import com.example.song.myapplication.logger.Log;
+import com.example.song.myapplication.models.Alarm;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,40 +20,60 @@ import java.net.URL;
  */
 public class TrafficService {
 
-    private static TrafficService trafficService;
+    private OnTaskCompleted callback;
 
-    public static TrafficService getInstance() {
-        if (trafficService == null) trafficService = new TrafficService();
-        return trafficService;
+
+    public TrafficService(OnTaskCompleted callback) {
+        this.callback = callback;
     }
 
-    public void getTimeEstimate(String origin, String destination, NewAlarmActivity a) {
-        new DownloadTask(origin, destination, a).execute();
+    public void getTimeEstimateAtTime(String origin, String destination, int time) {
+        new GetTrafficTimeAsync(origin, destination, time).execute();
     }
 
-    private class DownloadTask extends AsyncTask<String, Void, String> {
+    public void getTimeEstimateNow(String origin, String destination) {
+        new GetTrafficTimeAsync(origin, destination).execute();
+    }
+
+
+
+    private class GetTrafficTimeAsync extends AsyncTask<String, Void, String> {
 
         String start;
         String end;
-        NewAlarmActivity activity;
-        private DownloadTask(String start, String end, NewAlarmActivity activity) {
+        int time;
+        private GetTrafficTimeAsync(String start, String end, int time) {
             this.start = start;
             this.end = end;
-            this.activity = activity;
+            this.time = time;
+        }
+
+        private GetTrafficTimeAsync(String start, String end) {
+            this.start = start;
+            this.end = end;
+            this.time = Alarm.DUMMY_TIME;
         }
 
         @Override
         protected String doInBackground(String... urls) {
             //Proof of Concept of ugliness.
+            Log.d("mbuddy", "inside traffic service async task");
+            String theUrl;
             double totalTime = 0;
-            String theUrl = getQuery(start, end);
+            if (this.time == Alarm.DUMMY_TIME) {
+                Log.d("mbuddy", "time equal to dummy time, getting time estimate now");
+                theUrl = getQueryNow(start, end);
+            } else {
+                theUrl = getQueryAtTime(start, end, time);
+            }
             InputStream inputStream = null;
             String json = "";
             String time = "";
             try{
                 inputStream = downloadUrl(theUrl);
                 json = readStream(inputStream);
-                time = json_getTime(json);
+                time = json_getTrafficTime(json);
+
                 //totalTime += Double.parseDouble(time); //I need to get my types figured out between string and double.
             }catch(IOException e){
                 Log.w("connectionError", e.getLocalizedMessage());
@@ -69,12 +89,11 @@ public class TrafficService {
          */
         @Override
         protected void onPostExecute(String result) {
-            float res = Float.parseFloat(result);
-            activity.finishAddAlarm(res);
+            callback.onTaskCompleted(result);
         }
     }
 
-    public String getQuery(String origin, String destination) {
+    public String getQueryAtTime(String origin, String destination, int time) {
         String query = "https://maps.googleapis.com/maps/api/distancematrix/json?";
         if(origin != null){
             query += "origins=" + origin.replace(" ", "+");
@@ -82,6 +101,20 @@ public class TrafficService {
         if(destination != null){
             query += "&destinations=" + destination.replace(" ", "+");
         }
+        query += "&departure_time=" + Utilities.getTimeForAPI(time);
+        query += "&key=AIzaSyD07dxloCOlhSaTUVvRFmM40Rrwto3c95w";
+        return query;
+    }
+    public String getQueryNow(String origin, String destination) {
+        String query = "https://maps.googleapis.com/maps/api/distancematrix/json?";
+        if(origin != null){
+            query += "origins=" + origin.replace(" ", "+");
+        }
+        if(destination != null){
+            query += "&destinations=" + destination.replace(" ", "+");
+        }
+        query += "&departure_time=" + (System.currentTimeMillis() / 1000);
+        query += "&key=AIzaSyD07dxloCOlhSaTUVvRFmM40Rrwto3c95w";
         return query;
     }
 
@@ -144,8 +177,25 @@ public class TrafficService {
                 for (int j = 0; j < elements.length(); j++) {
                     JSONObject elem = elements.getJSONObject(j);
                     JSONObject duration = elem.getJSONObject("duration");
-                    System.out.println(duration.getString("text"));
-                    System.out.println(duration.getString("value"));
+                    timeReturn = duration.getString("value");
+                }
+            }
+            return timeReturn;
+        } catch (Exception e) {
+            return "Failed to Read Time";
+        }
+    }
+    private String json_getTrafficTime(String json) {
+        String timeReturn = "";
+        try {
+            JSONObject json1 = new JSONObject(json);
+            JSONArray rows = json1.getJSONArray("rows");
+            for (int i = 0; i < rows.length(); i++) { //traverse the rows to find elements...
+                JSONObject obj = rows.getJSONObject(i);
+                JSONArray elements = obj.getJSONArray("elements");
+                for (int j = 0; j < elements.length(); j++) {
+                    JSONObject elem = elements.getJSONObject(j);
+                    JSONObject duration = elem.getJSONObject("duration_in_traffic");
                     timeReturn = duration.getString("value");
                 }
             }

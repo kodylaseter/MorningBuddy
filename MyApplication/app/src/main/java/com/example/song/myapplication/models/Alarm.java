@@ -19,6 +19,7 @@ public class Alarm {
     private float timeEstimate;
     private int newTime;
     public static final int DUMMY_TIME = 9999999;
+    public static final int TRAFFIC_BUFFER_TIME = 20;
 
     public Alarm(int id, String name, int minutesAfterMidnight, boolean weatherEnabled, boolean trafficEnabled, String origin, String destination, int newTime) {
         this.id = id;
@@ -51,6 +52,15 @@ public class Alarm {
 
     public Time getTimeAsTime() {
         return Utilities.minutesToTime(time);
+    }
+
+    public Time getNewTimeAsTime() {
+        return Utilities.minutesToTime(newTime);
+    }
+
+    public Time getEitherTimeAsTime() {
+        if (newTime != DUMMY_TIME) return getNewTimeAsTime();
+        else return getTimeAsTime();
     }
 
     public String getTimeString() {

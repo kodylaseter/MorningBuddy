@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.song.myapplication.data.Channel;
 import com.example.song.myapplication.data.Item;
 import com.example.song.myapplication.data.WeatherMonitor;
+import com.example.song.myapplication.models.Alarm;
 import com.example.song.myapplication.service.SingleShotLocationProvider;
 import com.example.song.myapplication.service.WeatherService;
 import com.example.song.myapplication.service.WeatherServiceCallback;
@@ -77,10 +78,20 @@ public class WeatherActivity extends AppCompatActivity {
 
     public void weatherAdjustSaveButton(View view) {
         WeatherMonitor wm = WeatherMonitor.getInstance();
-        wm.setSnowTime(Integer.parseInt(snowEditText.getText().toString()));
-        wm.setStormTime(Integer.parseInt(stormEditText.getText().toString()));
-        wm.setWindyTime(Integer.parseInt(windyEditText.getText().toString()));
+        int snowTime = Integer.parseInt(snowEditText.getText().toString());
+        int stormTime = Integer.parseInt(stormEditText.getText().toString());
+        int windTime = Integer.parseInt(windyEditText.getText().toString());
+        int rainTime = Integer.parseInt(rainEditText.getText().toString());
+        int buffer = Alarm.TRAFFIC_BUFFER_TIME - 5;
+        if (snowTime > buffer || stormTime > buffer || windTime > buffer || rainTime > buffer) {
+            Toast.makeText(this, "Weather delay times cannot exceed " + buffer + " minutes.", Toast.LENGTH_SHORT).show();
+        } else {
+            wm.setSnowTime(snowTime);
+            wm.setStormTime(stormTime);
+            wm.setWindyTime(windTime);
+            wm.setRainTime(rainTime);
+            finish(); //terminate current screen and return to previous screen
+        }
 
-        finish(); //terminate current screen and return to previous screen
     }
 }

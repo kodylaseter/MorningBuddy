@@ -3,16 +3,14 @@ package com.example.song.myapplication.service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.song.myapplication.AlarmActivity;
+import com.example.song.myapplication.data.WeatherMonitor;
 import com.example.song.myapplication.db.AlarmDBHelper;
 import com.example.song.myapplication.models.Alarm;
 import com.example.song.myapplication.models.AlarmType;
-
-import java.util.Calendar;
 
 
 /**
@@ -25,6 +23,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent arg1) {
         this.ctx = context;
+        Alarm alarm;
         String alarmType = arg1.getStringExtra(AlarmManagerService.ALARM_TYPE);
         int id = Integer.parseInt(arg1.getStringExtra(AlarmManagerService.ALARM_ID));
         //still lots to be added here
@@ -36,17 +35,39 @@ public class AlarmReceiver extends BroadcastReceiver {
                 context.startActivity(i);
                 break;
             case AlarmType.CHECKTRAFFIC:
-                String origin = arg1.getStringExtra(AlarmManagerService.ORIGIN);
-                String dest = arg1.getStringExtra(AlarmManagerService.DESTINATION);
+                alarm = AlarmDBHelper.getInstance(context).getAlarm(id);
+                TrafficChecker trafficChecker = new TrafficChecker(this, context);
+                trafficChecker.checkTime(alarm);
                 break;
             case AlarmType.CHECKWEATHER:
-                Alarm alarm = AlarmDBHelper.getInstance(context).getAlarm(id);
+                alarm = AlarmDBHelper.getInstance(context).getAlarm(id);
                 WeatherChecker wc = new WeatherChecker(this, context);
                 wc.checkWeather(alarm);
                 break;
         }
+    }
 
-
+    public void trafficCheckStep(Alarm alarm) {
+        if (alarm.getNewTime() != Alarm.DUMMY_TIME) {
+            if (alarm.getNewTime() < alarm.getTime() - WeatherMonitor.getInstance().getMaxTime()) {
+                Toast.makeText(this.ctx, "Alarm moved up " + (alarm.getTime() - alarm.getNewTime()) + " minutes due to traffic conditions!", Toast.LENGTH_SHORT).show();
+                AlarmManagerService.getInstance().setAlarm(alarm, AlarmType.ACTUALALARM, this.ctx, alarm.getNewTime());
+            } else {
+                if (alarm.isWeatherEnabled()) {
+                    Toast.makeText(this.ctx, "Alarm moved up " + (alarm.getTime() - alarm.getNewTime()) + " minutes and weather check will still occur.", Toast.LENGTH_SHORT).show();
+                    AlarmManagerService.getInstance().setAlarm(alarm, AlarmType.CHECKWEATHER, this.ctx, alarm.getNewTime());
+                } else {
+                    Toast.makeText(this.ctx, "Alarm moved up " + (alarm.getTime() - alarm.getNewTime()) + " minutes due to traffic conditions!", Toast.LENGTH_SHORT).show();
+                    AlarmManagerService.getInstance().setAlarm(alarm, AlarmType.ACTUALALARM, this.ctx, alarm.getNewTime());
+                }
+            }
+        } else {
+            if (alarm.isWeatherEnabled()) {
+                AlarmManagerService.getInstance().setAlarm(alarm, AlarmType.CHECKWEATHER, this.ctx, alarm.getTime());
+            } else {
+                AlarmManagerService.getInstance().setAlarm(alarm, AlarmType.ACTUALALARM, this.ctx, alarm.getTime());
+            }
+        }
     }
 
     public void finishWeatherCheck(Alarm alarm) {
