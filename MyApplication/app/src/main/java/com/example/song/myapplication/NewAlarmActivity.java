@@ -199,12 +199,13 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         alarm.setTimeEstimate(timeEstimate);
         alarm.setNewTime(Alarm.DUMMY_TIME);
         double test = timeEstimate;
-        Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
+        //Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
         int bufferTime;
-        if (!realAlarm.isTrafficEnabled()) {
-            if (realAlarm.isWeatherEnabled()) {
+        if (!alarm.isTrafficEnabled()) {
+            if (alarm.isWeatherEnabled()) {
                 bufferTime = WeatherMonitor.getInstance().getMaxTime() + 1;
-                if (Utilities.isTimeFarEnoughAway(realAlarm.getTimeAsTime(), bufferTime)) {
+                if (Utilities.isTimeFarEnoughAway(alarm.getTimeAsTime(), bufferTime)) {
+                    Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
                     AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKWEATHER, this, realAlarm.getTime());
                     Intent i = new Intent(this,HomeActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -215,6 +216,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
                 }
 
             } else {
+                Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
                 AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.ACTUALALARM, this, realAlarm.getTime());
                 Intent i = new Intent(this,HomeActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -223,14 +225,15 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
             }
         } else {
             bufferTime = Alarm.TRAFFIC_BUFFER_TIME;
-            String origin = realAlarm.getOrigin();
-            String dest = realAlarm.getDestination();
+            String origin = alarm.getOrigin();
+            String dest = alarm.getDestination();
             if (origin == null || origin.equals("") || dest == null || dest.equals("")) {
                 Toast.makeText(this, "Origin and Destination must be set to use traffic updates! ", Toast.LENGTH_SHORT).show();
             } else if (timeEstimate < 0.1) {
                 Toast.makeText(this, "Time estimate was too small, something is wrong.", Toast.LENGTH_SHORT).show();
             } else {
-                if (Utilities.isTimeFarEnoughAway(realAlarm.getTimeAsTime(), bufferTime)){
+                if (Utilities.isTimeFarEnoughAway(alarm.getTimeAsTime(), bufferTime)){
+                    Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
                     AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKTRAFFIC, this, realAlarm.getTime() - Alarm.TRAFFIC_BUFFER_TIME);
                     Intent i = new Intent(this,HomeActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

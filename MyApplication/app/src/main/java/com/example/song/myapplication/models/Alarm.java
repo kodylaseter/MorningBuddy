@@ -74,7 +74,7 @@ public class Alarm {
             sH = "12";
             temp = sH + ":" + sM + " AM";
         }
-        if (hours > 12) {
+        else if (hours > 12) {
             sH = Integer.toString(hours - 12);
             temp = sH + ":" + sM + " PM";
         } else {

@@ -1,6 +1,7 @@
 package com.example.song.myapplication;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -105,6 +106,13 @@ alarm.startAlarm();
 
     public void endAlarm(View view) {
         alarm.stopAlarm();
+    }
+
+    public void dismissAlarm(View view) {
+        alarm.stopAlarm();
+        Intent i = new Intent(this,HomeActivity.class);
+        i.putExtra("EXIT", true);
+        startActivity(i);
     }
 
     @Override

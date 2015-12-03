@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.song.myapplication.R;
@@ -31,6 +32,24 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
         }
         TextView firstLine = (TextView) convertView.findViewById(R.id.firstLine);
         TextView secondLine = (TextView) convertView.findViewById(R.id.secondLine);
+        ImageView trafficOn = (ImageView) convertView.findViewById(R.id.traffic_on);
+        ImageView trafficOff = (ImageView) convertView.findViewById(R.id.traffic_off);
+        ImageView weatherOn = (ImageView) convertView.findViewById(R.id.weather_on);
+        ImageView weatherOff = (ImageView) convertView.findViewById(R.id.weather_off);
+        if (alarm.isWeatherEnabled()) {
+            weatherOn.setVisibility(View.VISIBLE);
+            weatherOff.setVisibility(View.GONE);
+        } else {
+            weatherOn.setVisibility(View.GONE);
+            weatherOff.setVisibility(View.VISIBLE);
+        }
+        if (alarm.isTrafficEnabled()) {
+            trafficOn.setVisibility(View.VISIBLE);
+            trafficOff.setVisibility(View.GONE);
+        } else {
+            trafficOn.setVisibility(View.GONE);
+            trafficOff.setVisibility(View.VISIBLE);
+        }
         firstLine.setText(alarm.getName());
         secondLine.setText(alarm.getTimeString());
         return convertView;
