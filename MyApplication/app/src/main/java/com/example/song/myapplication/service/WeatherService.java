@@ -50,12 +50,14 @@ public class WeatherService {
                 String endpoint = String.format("https://query.yahooapis.com/v1/public/yql?q=%s&format=json", Uri.encode(query));
 
                 try {
+                    //get returning weather information from Yahoo weather server
                     URL url = new URL(endpoint);
                     URLConnection conn = url.openConnection();
                     InputStream inputStream = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                     StringBuilder result = new StringBuilder();
                     String line;
+                    //parse the information
                     while((line=reader.readLine()) != null) {
                         result.append(line);
                     }
@@ -74,14 +76,14 @@ public class WeatherService {
                     return;
                 }
                 try {
-                    JSONObject data = new JSONObject(s);
-                    JSONObject queryResult = data.optJSONObject("query");
-                    int count = queryResult.optInt("count");
+                    JSONObject data = new JSONObject(s);    //return result as JSON for further parsing
+                    JSONObject queryResult = data.optJSONObject("query");   //return result from server
+                    int count = queryResult.optInt("count");    //if successfully fetch data from yahoo weather server, 0 indicates fail fetching
                     if (count == 0) {
                         callback.serviceFailure(new LocationWeatherException("No Weather information found for " + location));
                         return;
                     }
-
+                    //store weather information into channel for further parsing, such as weather condition, temperature
                     Channel channel = new Channel();
                     channel.populate(queryResult.optJSONObject("results").optJSONObject("channel")); //return queried results
                     callback.serviceSuccess(channel);
@@ -91,6 +93,10 @@ public class WeatherService {
             }
         }.execute(location);
     }
+
+    /**
+     * if error occurs while fetching weather data from the server
+     */
     public class LocationWeatherException extends Exception {
         public LocationWeatherException(String detailMessage) {
             super(detailMessage);

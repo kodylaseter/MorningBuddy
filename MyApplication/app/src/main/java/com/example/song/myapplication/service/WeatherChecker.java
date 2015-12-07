@@ -30,6 +30,10 @@ public class WeatherChecker implements WeatherServiceCallback {
         this.ctx = ctx;
     }
 
+    /**
+     * do weather query based on current location
+     * @param alarm
+     */
     public void checkWeather(Alarm alarm) {
         this.alarm = alarm;
         SingleShotLocationProvider.requestSingleUpdate(ctx,
@@ -40,9 +44,12 @@ public class WeatherChecker implements WeatherServiceCallback {
                         weatherService.refreshWeather(location.toString());
                     }
                 });
-
     }
 
+    /**
+     * if current weather information has been returned
+     * @param channel, weather information
+     */
     @Override
     public void serviceSuccess(Channel channel) {
         Item item = channel.getItem();
@@ -50,7 +57,8 @@ public class WeatherChecker implements WeatherServiceCallback {
         int weatherConditionCode = item.getCondition().getCode();
 
         WeatherState weatherState = WeatherConditionStates.getStateFromCode(weatherConditionCode);
-        //set to snow for testing
+
+        //set to snow for testing/debugging
         weatherState = WeatherState.snow;
         switch (weatherState){
             case snow:
@@ -78,11 +86,18 @@ public class WeatherChecker implements WeatherServiceCallback {
         this.alarmReceiver.finishWeatherCheck(this.alarm);
     }
 
+    /**
+     * if fail of fetching weather information
+     * @param exception
+     */
     @Override
     public void serviceFailure(Exception exception) {
         Toast.makeText(this.ctx, exception.getMessage(), Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * weather state based on weather condition code
+     */
     public enum WeatherState {
         snow, storm, wind, rain, other;
     }

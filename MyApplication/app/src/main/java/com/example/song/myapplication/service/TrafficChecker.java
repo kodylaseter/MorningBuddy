@@ -24,6 +24,10 @@ public class TrafficChecker implements OnTaskCompleted {
         this.trafficService = new TrafficService(this);
     }
 
+    /**
+     * check the time for travelling
+     * @param alarm
+     */
     public void checkTime (Alarm alarm) {
         this.alarm = alarm;
         trafficService.getTimeEstimateAtTime(alarm.getOrigin(), alarm.getDestination(), alarm.getTime());
@@ -34,6 +38,10 @@ public class TrafficChecker implements OnTaskCompleted {
         trafficService.getTimeEstimateNow(alarm.getOrigin(), alarm.getDestination());
     }
 
+    /**
+     * auto time checking interval for later time adjustment
+     * @param res
+     */
     public void onTaskCompleted(String res) {
         float newTime = Float.parseFloat(res);
         if (this.callbackObject instanceof AlarmReceiver) {
@@ -47,6 +55,11 @@ public class TrafficChecker implements OnTaskCompleted {
         }
     }
 
+    /**
+     * reformat the time
+     * @param time
+     * @return
+     */
     private Alarm handleTime(float time) {
         Alarm newAlarm = this.alarm;
         float estimate = alarm.getTimeEstimate();

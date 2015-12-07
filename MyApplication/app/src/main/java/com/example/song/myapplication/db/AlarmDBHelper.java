@@ -24,6 +24,11 @@ public class AlarmDBHelper {
 
     private static AlarmDBHelper alarmDBInstance;
 
+    /**
+     * singleton
+     * @param ctx
+     * @return
+     */
     public static AlarmDBHelper getInstance(Context ctx) {
         if (alarmDBInstance == null) {
             alarmDBInstance = new AlarmDBHelper(ctx.getApplicationContext());
@@ -37,14 +42,25 @@ public class AlarmDBHelper {
         updateAlarms();
     }
 
+    /**
+     * get db
+     * @throws SQLException
+     */
     public void open() throws SQLException{
         db = dbservice.getWritableDatabase();
     }
 
+    /**
+     * close db access to avoid overflow
+     */
     public void close() {
         dbservice.close();
     }
 
+    /**
+     *
+     * @return current db
+     */
     public SQLiteDatabase getDb () {
         if (db == null) try {
             this.open();
@@ -54,6 +70,11 @@ public class AlarmDBHelper {
         return db;
     }
 
+    /**
+     * populate alarm information and set it into db
+     * @param alarm
+     * @return
+     */
     public Alarm addAlarm(Alarm alarm) {
         //alarmManagerService.setAlarm(Utilities.minutesToTime(alarm.getTime()), ctx);
         ContentValues values = new ContentValues();
@@ -79,11 +100,19 @@ public class AlarmDBHelper {
         return a;
     }
 
+    /**
+     * getter for alarm
+     * @param position
+     * @return alarm based on index position
+     */
     public Alarm getAlarm(int position) {
         ArrayList<Alarm> alarms = getAlarms();
         return alarms.get(position);
     }
 
+    /**
+     * update alarm
+     */
     public void updateAlarms() {
 
         this.alarms = new ArrayList<Alarm>();
@@ -97,6 +126,10 @@ public class AlarmDBHelper {
         cursor.close();
     }
 
+    /**
+     * get all the alarms available in the db
+     * @return
+     */
     public ArrayList<Alarm> getAlarms() {
         return this.alarms;
     }

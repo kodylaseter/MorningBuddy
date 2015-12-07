@@ -25,17 +25,26 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
         alarmDBHelper = new AlarmDBHelper(null);
     }
 
+    /**
+     * set up page view of alarm listing
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     public View getView(int position, View convertView, ViewGroup parent) {
         Alarm alarm = alarmDBHelper.getAlarm(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.alarms_list_item, parent, false);
         }
+        //layout of the current list view
         TextView firstLine = (TextView) convertView.findViewById(R.id.firstLine);
         TextView secondLine = (TextView) convertView.findViewById(R.id.secondLine);
         ImageView trafficOn = (ImageView) convertView.findViewById(R.id.traffic_on);
         ImageView trafficOff = (ImageView) convertView.findViewById(R.id.traffic_off);
         ImageView weatherOn = (ImageView) convertView.findViewById(R.id.weather_on);
         ImageView weatherOff = (ImageView) convertView.findViewById(R.id.weather_off);
+        //image view for if any weather and traffic monitoring is on
         if (alarm.isWeatherEnabled()) {
             weatherOn.setVisibility(View.VISIBLE);
             weatherOff.setVisibility(View.GONE);

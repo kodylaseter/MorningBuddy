@@ -70,9 +70,12 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
 
         Handler handler = new Handler();
 
+        //small progress bar to indicate data fetching
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
+
+        //obtaining current location for weather checking
         SingleShotLocationProvider.requestSingleUpdate(this,
                 new SingleShotLocationProvider.LocationCallback() {
                     @Override
@@ -108,6 +111,11 @@ alarm.startAlarm();
         alarm.stopAlarm();
     }
 
+    /**
+     *
+     * @param view, current page view
+     * dismiss the alarm and return to home
+     */
     public void dismissAlarm(View view) {
         alarm.stopAlarm();
         Intent i = new Intent(this,HomeActivity.class);

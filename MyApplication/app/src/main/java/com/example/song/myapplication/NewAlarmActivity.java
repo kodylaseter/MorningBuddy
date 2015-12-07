@@ -58,6 +58,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
     Button mBut2;
     String start, end;
 
+    //preset location for testing and debugging
     private static final LatLngBounds BOUNDS_GREATER_SYDNEY = new LatLngBounds(
             new LatLng(-34.041458, 150.790100), new LatLng(-33.682247, 151.383362));
 
@@ -77,6 +78,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         mDestination = (Button)findViewById(R.id.mapbut2);
         findViewById(R.id.new_alarm_linearlayout).requestFocus();
 
+        //switch listener, which listens on traffic and weather switches
         CompoundButton.OnCheckedChangeListener switchListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -95,6 +97,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
                 }
             }
         };
+        //google map functions for address look up
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, 0 /* clientId */, this)
                 .addApi(Places.GEO_DATA_API)
@@ -106,6 +109,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         trafficDestination.setAdapter(mAdapter);
         trafficOrigin.setAdapter(mAdapter);
 
+        //setting the address
         mStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent myIntent = new Intent(view.getContext(), TrafficMapActivity.class);
@@ -121,7 +125,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
             }
         });
 
-
+        //add listener to switches
         trafficSwitch.setOnCheckedChangeListener(switchListener);
         weatherSwitch.setOnCheckedChangeListener(switchListener);
 
@@ -147,6 +151,13 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * set address text input
+     * @param requestCode, indicate which activity has been returned
+     * @param resultCode, indicate weather the activity has been successfully completed
+     * @param data, the data the might need for further execution
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -164,6 +175,10 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         }
     }
 
+    /**
+     * do a traffic time check before finalizing set up the alarm
+     * @param view
+     */
     public void initialAddAlarm(View view) {
         start = trafficOrigin.getText().toString();
         end = trafficDestination.getText().toString();
@@ -185,6 +200,10 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         }
     }
 
+    /**
+     * finalizing the alarm, which sets up the traffic and weather adjustment time
+     * @param timeEstimate
+     */
     //@TargetApi(Build.VERSION_CODES.M)
     public void finishAddAlarm(float timeEstimate) {
         Alarm alarm = new Alarm();
@@ -201,10 +220,12 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         double test = timeEstimate;
         //Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
         int bufferTime;
+        //traffic has higher priority
         if (!alarm.isTrafficEnabled()) {
-            if (alarm.isWeatherEnabled()) {
+            if (alarm.isWeatherEnabled()) { //check on weather adjustment time
                 bufferTime = WeatherMonitor.getInstance().getMaxTime() + 1;
                 if (Utilities.isTimeFarEnoughAway(alarm.getTimeAsTime(), bufferTime)) {
+                    //adjust the alarm based on weather information, then set up the alarm
                     Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
                     AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKWEATHER, this, realAlarm.getTime());
                     Intent i = new Intent(this,HomeActivity.class);
@@ -215,7 +236,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
                     Toast.makeText(this, "Weather check requires at least " + bufferTime + " minutes.", Toast.LENGTH_SHORT).show();
                 }
 
-            } else {
+            } else {    //default alarm
                 Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
                 AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.ACTUALALARM, this, realAlarm.getTime());
                 Intent i = new Intent(this,HomeActivity.class);
@@ -227,6 +248,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
             bufferTime = Alarm.TRAFFIC_BUFFER_TIME;
             String origin = alarm.getOrigin();
             String dest = alarm.getDestination();
+            //adjust the alarm based on the pre-fetched traffic time
             if (origin == null || origin.equals("") || dest == null || dest.equals("")) {
                 Toast.makeText(this, "Origin and Destination must be set to use traffic updates! ", Toast.LENGTH_SHORT).show();
             } else if (timeEstimate < 0.1) {
@@ -247,6 +269,9 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
 
     }
 
+    /**
+     * check on any layer clicked on the map
+     */
     private AdapterView.OnItemClickListener mAutocompleteClickListener
             = new AdapterView.OnItemClickListener() {
         @Override
@@ -295,6 +320,16 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         }
     };
 
+    /**
+     * formatting the output string for the map addresss
+     * @param res
+     * @param name
+     * @param id
+     * @param address
+     * @param phoneNumber
+     * @param websiteUri
+     * @return
+     */
     private static Spanned formatPlaceDetails(Resources res, CharSequence name, String id,
                                               CharSequence address, CharSequence phoneNumber, Uri websiteUri) {
 

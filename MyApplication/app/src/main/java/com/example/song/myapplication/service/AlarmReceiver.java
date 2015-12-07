@@ -24,9 +24,12 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent arg1) {
         this.ctx = context;
         Alarm alarm;
+
+        //alarmType indicate which alarm function has been enabled
         String alarmType = arg1.getStringExtra(AlarmManagerService.ALARM_TYPE);
         int id = Integer.parseInt(arg1.getStringExtra(AlarmManagerService.ALARM_ID));
-        //still lots to be added here
+
+        //preprocessing alarm view page based on alarm funciton
         switch (alarmType) {
             case AlarmType.ACTUALALARM:
                 Log.d("mbuddy", "final alarm!");
@@ -47,6 +50,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
     }
 
+    /**
+     * do a traffic check
+     * @param alarm
+     */
     public void trafficCheckStep(Alarm alarm) {
         if (alarm.getNewTime() != Alarm.DUMMY_TIME) {
             if (alarm.getNewTime() < alarm.getTime() - WeatherMonitor.getInstance().getMaxTime()) {
@@ -70,6 +77,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
     }
 
+    /**
+     * do a weather check
+     * @param alarm
+     */
     public void finishWeatherCheck(Alarm alarm) {
         int a = alarm.getId();
         if (alarm.getNewTime() != Alarm.DUMMY_TIME) {

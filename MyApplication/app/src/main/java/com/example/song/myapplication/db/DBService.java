@@ -17,6 +17,7 @@ public class DBService extends SQLiteOpenHelper {
 
     public static DBService dbInstance;
 
+    //db table information/scheme
     public static final String TABLE_NAME = "alarm";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
@@ -32,6 +33,7 @@ public class DBService extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "alarm.db";
     private static final int DATABASE_VERSION = 8;
 
+    //create db
     private static final String DATABASE_CREATE = "create table " + TABLE_NAME + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_NAME + " text not null, " + COLUMN_TIME + " integer not null, " + COLUMN_WEATHERENABLED + " boolean not null, " + COLUMN_TRAFFICENABLED + " boolean not null, " + COLUMN_ORIGIN + " text, " + COLUMN_DESTINATION + " text, " + COLUMN_TIMEESTIMATE + " real, " + COLUMN_NEW_TIME + " integer" + ");";
 
     private Context dbCtx;
@@ -48,11 +50,21 @@ public class DBService extends SQLiteOpenHelper {
         this.dbCtx = context;
     }
 
+    /**
+     * create the db
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE);
     }
 
+    /**
+     * update the db
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(DBService.class.getName(),
@@ -62,6 +74,11 @@ public class DBService extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * return query data from the db
+     * @param Query
+     * @return
+     */
     public ArrayList<Cursor> getData(String Query){
         //get writable database
         SQLiteDatabase sqlDB = this.getWritableDatabase();

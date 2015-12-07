@@ -23,11 +23,23 @@ public class AlarmManagerService {
     public static final String ORIGIN = "origin";
     public static final String DESTINATION = "destination";
     public static final String ALARM_TYPE = "alarmType";
+
+    /**
+     *
+     * @return alarm manager service
+     */
     public static AlarmManagerService getInstance() {
         if (ams == null) ams = new AlarmManagerService();
         return ams;
     }
 
+    /**
+     * set the alarm based on which alarm function has been enabled
+     * @param alarm basic alarm
+     * @param alarmType, which function has been enabled
+     * @param ctx
+     * @param time, adjustment time
+     */
     public void setAlarm(Alarm alarm, String alarmType, Context ctx, int time) {
         Calendar calSet = Utilities.getCalendarFromTime(time);
         long t = calSet.getTimeInMillis();
@@ -42,6 +54,7 @@ public class AlarmManagerService {
                 calSet.add(Calendar.MINUTE, 0 - tempTime);
                 break;
         }
+        //pass information to the new alarm to set up the alarm in the db
         int a = alarm.getId();
         intent.putExtra(ALARM_ID, String.valueOf(alarm.getZeroId()));
         intent.putExtra(ORIGIN, alarm.getOrigin());

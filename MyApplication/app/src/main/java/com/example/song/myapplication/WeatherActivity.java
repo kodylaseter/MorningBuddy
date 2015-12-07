@@ -50,39 +50,35 @@ public class WeatherActivity extends AppCompatActivity {
         rainEditText = (EditText)findViewById(R.id.rainEditText);
         rainEditText.setText(String.valueOf(WeatherMonitor.getInstance().getRainTime()));
         saveButton = (Button)findViewById(R.id.saveButton);
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
         return true;
     }
 
-
+    /**
+     *
+     * @param view, the weather adjustment page.
+     * The method sets up the weather adjustment time based on the activated weather event monitoring
+     */
     public void weatherAdjustSaveButton(View view) {
+        //calling the singleton weather monitor
         WeatherMonitor wm = WeatherMonitor.getInstance();
+
+        //get time from the UI values
         int snowTime = Integer.parseInt(snowEditText.getText().toString());
         int stormTime = Integer.parseInt(stormEditText.getText().toString());
         int windTime = Integer.parseInt(windyEditText.getText().toString());
         int rainTime = Integer.parseInt(rainEditText.getText().toString());
         int buffer = Alarm.TRAFFIC_BUFFER_TIME - 5;
+
+        //comparing to obtain the max adjustment time
         if (snowTime > buffer || stormTime > buffer || windTime > buffer || rainTime > buffer) {
             Toast.makeText(this, "Weather delay times cannot exceed " + buffer + " minutes.", Toast.LENGTH_SHORT).show();
         } else {
