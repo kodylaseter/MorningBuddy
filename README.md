@@ -39,13 +39,13 @@ If the user wants the alarm to automatically roll back time based on weather, he
 
 ## Tests
 #### Works on
-* Devices it works with Google Nexus with Android 4.0+
+* It works with all modern android devies
 
 #### Does not work on
-* Devices it doesn't work with
+* iPhones and Windows Phones
 
 ## Permissions
-* May need permission to access to location service on an Android device
+* Requires multiple permissions including location, internet, etc.
 
 ## License 
 * Free of License
@@ -54,7 +54,7 @@ If the user wants the alarm to automatically roll back time based on weather, he
 * Version 0.1
 
 ## How-to use this code
-* 
+* Clone project and open in Android Studio. All necessary dependencies should be installed via gradle. Run on android version 5.0+ for ideal results.
 
 ## Contact
 #### Developer
