@@ -56,6 +56,7 @@ public class TrafficMapActivity extends FragmentActivity
     private MarkerOptions markerOptions;
 
 
+    //preset location for testing and debugging
     private static final LatLngBounds BOUNDS_GREATER_SYDNEY = new LatLngBounds(
             new LatLng(-34.041458, 150.790100), new LatLng(-33.682247, 151.383362));
 
@@ -104,6 +105,10 @@ public class TrafficMapActivity extends FragmentActivity
 
     }
 
+    /**
+     * display the map
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -117,6 +122,11 @@ public class TrafficMapActivity extends FragmentActivity
         pinpointMaps.setOnClickListener(this);
 
     }
+
+    /**
+     * add pin marker on map after long click
+     * @param point
+     */
     @Override
     public void onMapLongClick(LatLng point) {
         mMap.clear();
@@ -128,6 +138,10 @@ public class TrafficMapActivity extends FragmentActivity
         mAutocompleteView.setText(point.latitude+","+point.longitude);
     }
 
+    /**
+     * return to previous view page with data
+     * @param v
+     */
     public void onClick(View v) {
         int requestCode = getIntent().getExtras().getInt("requestCode");
         if(requestCode == 1){
@@ -138,7 +152,7 @@ public class TrafficMapActivity extends FragmentActivity
                 intent.putExtra("mapviewStartingLoc", "");
             }
             coordData = null;
-            setResult(RESULT_OK, intent);
+            setResult(RESULT_OK, intent);   //return with successful data included
             finish();
         }else{
             Intent intent = new Intent();
@@ -154,7 +168,10 @@ public class TrafficMapActivity extends FragmentActivity
 
     }
 
-
+    /**
+     * The current Gatech map coordinate
+     * @return Gatech map coordinate
+     */
     public double[] getGTCoordinates() {
         double[] coordinates = new double[2];
         coordinates[0] = 33.776262417193344;

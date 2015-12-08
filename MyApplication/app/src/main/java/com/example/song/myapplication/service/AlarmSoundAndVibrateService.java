@@ -24,7 +24,10 @@ public class AlarmSoundAndVibrateService{
     private final long[] pattern = {0, 1000, 1000, 1000, 1000, 1000};
 
 
-
+    /**
+     * set default alarm sound and vibration for the alarm
+     * @param ctx
+     */
     public AlarmSoundAndVibrateService(Context ctx) {
         context = ctx;
         try {
@@ -36,6 +39,9 @@ public class AlarmSoundAndVibrateService{
         }
     }
 
+    /**
+     * set the alarm with ring tone and vibrator
+     */
     public void startAlarm() {
 
         Log.d("mbuddy", "alarm started");
@@ -44,6 +50,9 @@ public class AlarmSoundAndVibrateService{
 
     }
 
+    /**
+     * dismiss the ring tone and vibrator
+     */
     public void stopAlarm() {
         Log.d("mbuddy", "alarm stopped");
         ringtone.stop();

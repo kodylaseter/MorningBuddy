@@ -22,13 +22,14 @@ public class SingleShotLocationProvider {
     public static void requestSingleUpdate(final Context context, final LocationCallback callback) {
         final LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        //check  if the user has enabled the location service on the device
         if (isNetworkEnabled) {
             Criteria criteria = new Criteria();
             criteria.setAccuracy(Criteria.ACCURACY_COARSE);
             try {
                 locationManager.requestSingleUpdate(criteria, new LocationListener() {
                     @Override
-                    public void onLocationChanged(Location location) {
+                    public void onLocationChanged(Location location) {  //getting current location based on longitude and latitude
                         callback.onNewLocationAvailable(new GPSCoordinates(location.getLongitude(), location.getLatitude()));
                     }
 

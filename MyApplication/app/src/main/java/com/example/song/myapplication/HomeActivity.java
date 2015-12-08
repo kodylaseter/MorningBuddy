@@ -25,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //getting current location information
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             //Toast.makeText(this, " is Enable in your device", Toast.LENGTH_SHORT).show();
@@ -33,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
             enableGLSAlert(); //enable google's location service to pin down current location
         }
 
-
+        //listing of all current alarms
         alarmListView = (ListView) findViewById(R.id.alarmListView);
         alarmDBHelper = AlarmDBHelper.getInstance(this);
 
@@ -42,6 +43,10 @@ public class HomeActivity extends AppCompatActivity {
         alarmListView.setAdapter(adapter);
     }
 
+    /**
+     * create a new alarm
+     * @param view, current view page
+     */
     public void newAlarmButtonClicked (View view) {
         Intent intent = new Intent(this, NewAlarmActivity.class);
         startActivity(intent);
@@ -54,6 +59,11 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     *
+     * @param item, weather setting button
+     * @return change the weather adjustment time in a new page, then return back
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -61,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.weather_settings) {
+        if (id == R.id.weather_settings) {  //switch to adjust weather time monitoring
             Intent  i = new Intent(this, WeatherActivity.class);
             startActivityForResult(i, 1);
         } else if (id == R.id.view_database) {
@@ -71,6 +81,9 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * A method to ask the user to enable the location service, so the app could pin down the current location for further data query
+     */
     private void enableGLSAlert() {
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setMessage("Google's Location Service is disabled in your device. Would you like to enable it?")
@@ -80,7 +93,7 @@ public class HomeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent GPSSettingIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivity(GPSSettingIntent);
+                    startActivity(GPSSettingIntent);    //user enable location service here
                 }
             });
         adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -13,6 +13,11 @@ public class Utilities {
         return new Time(minutes / 60, minutes % 60, 0);
     }
 
+    /**
+     * get current time
+     * @param minutes
+     * @return current time
+     */
     public static Calendar getCalendarFromTime(int minutes) {
         //Time time = alarm.getTimeAsTime();
         Time time = minutesToTime(minutes);
@@ -29,6 +34,11 @@ public class Utilities {
         return cal;
     }
 
+    /**
+     *
+     * @param minutes
+     * @return reformatted time for api usage later
+     */
     public static long getTimeForAPI(int minutes) {
         Time time = minutesToTime(minutes);
         Calendar cal = Calendar.getInstance();
@@ -44,18 +54,39 @@ public class Utilities {
         return cal.getTimeInMillis() / 1000;
     }
 
+    /**
+     *
+     * @param time
+     * @return time to minutes
+     */
     public static long timeToMinutes(Time time) {
         return (time.getHours() * 60) + time.getMinutes();
     }
 
+    /**
+     *
+     * @param min
+     * @return minutes to milliseconds
+     */
     public static long minutesToMilliseconds(int min) {
         return min * 60 * 1000;
     }
 
+    /**
+     *
+     * @param millis
+     * @return milliseconds to minutes
+     */
     public static long millisecondsToMinutes(int millis) {
         return millis / (60*1000);
     }
 
+    /**
+     * make sure the alarm is set far enough away that there is time to perform the needed checks
+     * @param time
+     * @param buffer
+     * @return
+     */
     public static boolean isTimeFarEnoughAway(Time time, int buffer) {
         Calendar cal = Calendar.getInstance();
         Calendar calNow = (Calendar) cal.clone();
@@ -71,9 +102,4 @@ public class Utilities {
         //we want cal to be greater than calNow
         return (cal.compareTo(calNow) >= 0);
     }
-
-
-//    public static boolean checkForValidTime(Alarm alarm, float minutes) {
-//
-//    }
 }

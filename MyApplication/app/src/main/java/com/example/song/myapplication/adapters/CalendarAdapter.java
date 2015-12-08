@@ -25,6 +25,13 @@ public class CalendarAdapter extends ArrayAdapter<CalendarEvent> {
         super(context, 0, events);
     }
 
+    /**
+     * get calendar events and display them
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     public View getView(int position, View convertView, ViewGroup parent) {
 
         CalendarEvent event = super.getItem(position);

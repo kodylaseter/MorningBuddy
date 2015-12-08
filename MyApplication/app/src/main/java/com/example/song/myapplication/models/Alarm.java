@@ -19,7 +19,7 @@ public class Alarm {
     private float timeEstimate;
     private int newTime;
     public static final int DUMMY_TIME = 9999999;
-    public static final int TRAFFIC_BUFFER_TIME = 20;
+    public static final int TRAFFIC_BUFFER_TIME = 20;   //hardcoded adjustment time for traffic checking
 
     public Alarm(int id, String name, int minutesAfterMidnight, boolean weatherEnabled, boolean trafficEnabled, String origin, String destination, int newTime) {
         this.id = id;
@@ -46,14 +46,26 @@ public class Alarm {
     public Alarm() {
     }
 
+    /**
+     *
+     * @return time
+     */
     public int getTime() {
         return time;
     }
 
+    /**
+     *
+     * @return formatted time
+     */
     public Time getTimeAsTime() {
         return Utilities.minutesToTime(time);
     }
 
+    /**
+     *
+     * @return formatted time
+     */
     public Time getNewTimeAsTime() {
         return Utilities.minutesToTime(newTime);
     }
@@ -63,6 +75,10 @@ public class Alarm {
         else return getTimeAsTime();
     }
 
+    /**
+     *
+     * @return format the time in a string that could be further analyzed
+     */
     public String getTimeString() {
         String temp = "";
         Time t = Utilities.minutesToTime(time);
@@ -83,6 +99,9 @@ public class Alarm {
         }
         return temp;
     }
+
+
+    /*getter and setter*/
 
     public void setTime(int t) {
         this.time = t;
