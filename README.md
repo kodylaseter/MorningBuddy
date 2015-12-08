@@ -6,6 +6,7 @@ Morning Buddy is a mobile application designed to help commuters start their day
 
 ##List of the alarms
 ![Screenshot Android](https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/alarm list.png "screenshot Android")
+<img src="https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/alarm list.png" width="200">
 
 ##Alarm displaying
 ![Screenshot Android](https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/alarm.png "screenshot Android")
@@ -17,7 +18,7 @@ Morning Buddy is a mobile application designed to help commuters start their day
 ##Create a new alarm
 ![Screenshot Android](https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/new alarm.png "screenshot Android")
 
-##Weather displaying
+##Weather adjustment time
 ![Screenshot Android](https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/weather.png "screenshot Android")
 ## Tests
 #### Works on
