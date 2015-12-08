@@ -48,6 +48,7 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
 
         setContentView(R.layout.activity_alarm);
 
+	//Setting up all the different services
         weatherIconImageView = (ImageView)findViewById(R.id.weatherIconImageView);
         temperatureTextView = (TextView)findViewById(R.id.temperatureTextView);
         conditionTextView = (TextView)findViewById(R.id.conditionTextView);
@@ -58,14 +59,7 @@ public class AlarmActivity extends AppCompatActivity implements WeatherServiceCa
         CalendarService calendarService = new CalendarService(this);
         CalendarAdapter adapter = new CalendarAdapter(this, calendarService.getEvents());
         calendarEventListView.setAdapter(adapter);
-
-
-
-        //so what should happen here is you should create the alarm service, which you seem to be doing correctly above.
-        //then start the alarm, also seems fine.
-        //somewhere in here you need to register the button.
-        //when the button is clicked, you should call like alarm.stopAlarm();
-
+        
         service = new WeatherService(this);
 
         Handler handler = new Handler();
