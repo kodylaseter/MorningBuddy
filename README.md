@@ -20,12 +20,18 @@ reminder events under the calendar </br>
 
 
 ##Map for traffic time estimation
+The map shows the locations for your current address and destination address. You could add a pin marker on the map if </br>
+you long press on the map instead of typing in the address. </br>
+
 <img src="https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/map.png" width="300">
 
 ##Create a new alarm
+When you click on the "+" logo on the alarm list, you could add a new alarm. Under the page, you could enter an alarm </br>
+name, alarm time, and you could have a choice of whether turning on extra features of weather or traffic adjustment. </br>
 <img src="https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/new alarm.png" width="300">
 
 ##Weather adjustment time
+If the user wants the alarm to automatically roll back time based on weather, he/she could preset the roll back minutes. </br>
 <img src="https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/weather.png" width="300">
 
 ## Tests
