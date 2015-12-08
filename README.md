@@ -5,7 +5,8 @@ Morning Buddy is a mobile application designed to help commuters start their day
 #### Screenshots
 
 ##List of the alarms
-The list shows all the alarms that have been created by the user. The green color for the weather or traffic icon indicates if the alarm is set for weather or traffic monitoring.
+The list shows all the alarms that have been created by the user. The green color for the weather or traffic icon indicates </br> if the alarm is set for weather or traffic monitoring. </br>
+
 <img src="https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/alarm list.png" width="300">
 
 ##Alarm displaying
