@@ -203,7 +203,7 @@ public class NewAlarmActivity extends AppCompatActivity implements GoogleApiClie
         int bufferTime;
         if (!alarm.isTrafficEnabled()) {
             if (alarm.isWeatherEnabled()) {
-                bufferTime = WeatherMonitor.getInstance().getMaxTime() + 1;
+                bufferTime = WeatherMonitor.getInstance().getMaxTime();
                 if (Utilities.isTimeFarEnoughAway(alarm.getTimeAsTime(), bufferTime)) {
                     Alarm realAlarm = alarmDBHelper.addAlarm(alarm);
                     AlarmManagerService.getInstance().setAlarm(realAlarm, AlarmType.CHECKWEATHER, this, realAlarm.getTime());

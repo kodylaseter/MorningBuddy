@@ -54,7 +54,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 AlarmManagerService.getInstance().setAlarm(alarm, AlarmType.ACTUALALARM, this.ctx, alarm.getNewTime());
             } else {
                 if (alarm.isWeatherEnabled()) {
-                    Toast.makeText(this.ctx, "Alarm moved up " + (alarm.getTime() - alarm.getNewTime()) + " minutes and weather check will still occur.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.ctx, "Alarm moved up " + (alarm.getTime() - alarm.getNewTime()) + " minutes and weather check will still occur.", Toast.LENGTH_LONG).show();
                     AlarmManagerService.getInstance().setAlarm(alarm, AlarmType.CHECKWEATHER, this.ctx, alarm.getNewTime());
                 } else {
                     Toast.makeText(this.ctx, "Alarm moved up " + (alarm.getTime() - alarm.getNewTime()) + " minutes due to traffic conditions!", Toast.LENGTH_SHORT).show();

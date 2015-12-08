@@ -30,7 +30,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCPnOpYwTc5FELf3D3WYfk0SqakDc6fhS0"/>
+            android:value="AIzaSyCqGCn-JLqxOwm-yehRF9PggI6HAOVyy8I"/>
 
         <activity
             android:name=".WeatherActivity"

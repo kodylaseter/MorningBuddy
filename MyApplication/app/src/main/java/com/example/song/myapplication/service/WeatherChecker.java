@@ -54,9 +54,9 @@ public class WeatherChecker implements WeatherServiceCallback {
         weatherState = WeatherState.snow;
         switch (weatherState){
             case snow:
-                Log.d("mbuddy", "alarm moved up due to snow");
+                Log.d("mbuddy", "Alarm moved up due to snow");
                 alarm.setNewTime((int)(Utilities.timeToMinutes(alarm.getEitherTimeAsTime()) - WeatherMonitor.getInstance().getSnowTime()));
-                Toast.makeText(this.ctx, "Alarm moved up " + WeatherMonitor.getInstance().getSnowTime() + " minutes due to traffic conditions!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.ctx, "Alarm moved up " + WeatherMonitor.getInstance().getSnowTime() + " minutes due to traffic conditions!", Toast.LENGTH_LONG).show();
                 break;
             case storm:
                 Log.d("mbuddy", "alarm moved up due to storm");

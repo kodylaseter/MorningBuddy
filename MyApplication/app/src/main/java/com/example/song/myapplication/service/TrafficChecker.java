@@ -37,11 +37,11 @@ public class TrafficChecker implements OnTaskCompleted {
     public void onTaskCompleted(String res) {
         float newTime = Float.parseFloat(res);
         if (this.callbackObject instanceof AlarmReceiver) {
-            newTime = 22;
+            newTime = 30;
             AlarmReceiver alarmReceiver = (AlarmReceiver)this.callbackObject;
             alarmReceiver.trafficCheckStep(handleTime(newTime));
         } else if (this.callbackObject instanceof NewAlarmActivity) {
-            newTime = 30;
+            newTime = 22;
             NewAlarmActivity newAlarmActivity = (NewAlarmActivity)this.callbackObject;
             newAlarmActivity.finishAddAlarm(newTime);
         }
@@ -50,9 +50,9 @@ public class TrafficChecker implements OnTaskCompleted {
     private Alarm handleTime(float time) {
         Alarm newAlarm = this.alarm;
         float estimate = alarm.getTimeEstimate();
-        if (time < estimate) {
+        if (time > estimate) {
             Log.d("mbuddy", "time was less");
-            int difference = Math.round(estimate - time);
+            int difference = Math.round(time - estimate);
             newAlarm.setNewTime(newAlarm.getTime() - difference);
         }
         return newAlarm;
