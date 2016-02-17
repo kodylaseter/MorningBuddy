@@ -7,7 +7,7 @@ Morning Buddy is a mobile application designed to help commuters start their day
 ##List of the alarms
 The list shows all the alarms that have been created by the user. The green color for the weather or traffic icon indicates </br> if the alarm is set for weather or traffic monitoring. </br>
 
-<img src="https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/alarm list.png" width="300">
+<img src="https://github.com/kodylaseter/MorningBuddy/blob/master/images/alarm%20list.png" width="300">
 
 
 
@@ -15,7 +15,7 @@ The list shows all the alarms that have been created by the user. The green colo
 The image shows what would happen when the alarm is happening. It displays the current weather information, and all the </br>
 reminder events under the calendar </br>
 
-<img src="https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/alarm.png" width="300">
+<img src="https://github.com/kodylaseter/MorningBuddy/blob/master/images/alarm.png" width="300">
 
 
 
@@ -23,19 +23,19 @@ reminder events under the calendar </br>
 The map shows the locations for your current address and destination address. You could add a pin marker on the map if </br>
 you long press on the map instead of typing in the address. </br>
 
-<img src="https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/map.png" width="300">
+<img src="https://github.com/kodylaseter/MorningBuddy/blob/master/images/map.png" width="300">
 
 ##Create a new alarm
 When you click on the "+" logo on the alarm list, you could add a new alarm. Under the page, you could enter an alarm </br>
 name, alarm time, and you could have a choice of whether turning on extra features of weather or traffic adjustment. </br>
 
-<img src="https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/new alarm.png" width="300">
+<img src="https://github.com/kodylaseter/MorningBuddy/blob/master/images/new alarm.png" width="300">
 
 ##Weather adjustment time
 If the user wants the alarm to automatically roll back time based on weather, he/she could preset the roll back minutes. </br>
 </br>
 
-<img src="https://github.gatech.edu/klaseter3/MorningBuddy/blob/master/images/weather.png" width="300">
+<img src="https://github.com/kodylaseter/MorningBuddy/blob/master/images/weather.png" width="300">
 
 ## Tests
 #### Works on
